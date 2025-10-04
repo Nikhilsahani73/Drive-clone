@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Menu with File/Folder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    /* Button style */
+    .dropdown-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Dropdown container */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Dropdown menu (hidden by default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      border-radius: 6px;
+      z-index: 1;
+    }
+
+    /* Dropdown items */
+    .dropdown-content button {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    /* Hover effect */
+    .dropdown-content button:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Show menu when active */
+    .show {
+      display: block;
+    }
+
+    /* Hide file inputs */
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dropdown">
+    <button onclick="toggleDropdown()" class="dropdown-btn">Options</button>
+    <div id="dropdownMenu" class="dropdown-content">
+      <button onclick="document.getElementById('fileInput').click()">Add File</button>
+      <button onclick="document.getElementById('folderInput').click()">Add Folder</button>
+    </div>
+  </div>
+
+  <!-- Hidden file inputs -->
+  <input type="file" id="fileInput" onchange="handleFile(event)">
+  <input type="file" id="folderInput" webkitdirectory directory multiple onchange="handleFolder(event)">
+
+  <script>
+    // Toggle dropdown visibility
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropdown-btn')) {
+        let dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+    // Handle file selection
+    function handleFile(event) {
+      const file = event.target.files[0];
+      if (file) {
+        alert("Selected file: " + file.name);
+      }
+    }
+
+    // Handle folder selection
+    function handleFolder(event) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        alert("Selected folder contains " + files.length + " file(s).");
+      }
+    }
+  </script>
+
+</body>
+</html>
