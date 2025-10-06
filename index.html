@@ -35,22 +35,49 @@
 
                 background-color: black;
                 color:white;
-            {} 
             }
             .light{
                 background-color: white;
                 color: #000;
 
             }
+           
+            .dropdown-manu{
+                margin-top: 10px;
+                display: none;
+                background-color: #141212;
+                color:white;
+                width: 200px;
+                border-radius: 10px;
+
+            }
+            .dropdown-manu ul{
+                width: 200px;
+                list-style-type: none;
+                text-align: left;
+                padding:20px ;
+                /* margin-top: 15px; */
+                font-size: 20px;
+            }
+            .logo img{
+                /* background-color: #000; */
+                height: 40px;
+                width: 200px;
+                color: #000;
+                border-radius: 10px;
+                padding: 0px 10px;
+
+            }
+            
         </style>
     </head>
-    <body>
+    <body class="bg-dark text-light">
         <!-- nev -->
         <nav
             class="d-flex justify-content-between align-items-center px-3 py-1 " style="border-bottom:1px solid ;">
             <div class="logo d-flex align-items-center me-4 ">
-                <img src="drive.png" alt class="w-25">
-                <span class="fs-4 m-2 ">Drive</span>
+                <img src="image.png" alt class="w-75">
+                <!-- <span class="fs-4 m-2 ">Drive</span> -->
             </div>
             <div class="nev-input border rounded-pill px-3 py-1 w-100  "
                 style="max-width: 700px; background-color: lightgrey; cursor: pointer;">
@@ -87,7 +114,16 @@
                                     <span class="ms-2 fs-5">
                                         <i class="fa-solid fa-plus me-2"></i>
                                         New</span>
+                                       
                                 </button>
+                                <div class="dropdown-manu" >
+                                        <ul>
+                                            <li><i class="fa-regular fa-file"></i>  New File</li>
+                                            <li><i class="fa-regular fa-file"></i>  File Upload</li>
+                                            <li><i class="fa-regular fa-folder"></i>  Folder Upload</li>
+                                        </ul>
+
+                                     </div> 
                             </div>
 
                             <!-- Sidebar Options -->
@@ -166,16 +202,16 @@
                         <div>
                             <h3>Home</h3>
                         </div>
-                        <div>
+                        <div class="home-table-data">
                             <table class=" w-100">
                                 <thead class="border-bottom border-dark ">
-                                    <tr>
-                                        <th>File Name</th>
-                                        <th>Reason Suggested</th>
-                                        <th>Owner</th>
-                                        <th>Location</th>
-                                        <th></th>
-                                    </tr>
+                                    
+                                    <th>File Name</th>
+                                    <th>Reason Suggested</th>
+                                    <th>Owner</th>
+                                    <th>Location</th>
+                                    <th></th>
+                                    
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -183,17 +219,28 @@
                                         <td class="w-25">You open .02/10/25</td>
                                         <td>me</td>
                                         <td>My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i>
+                                            <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>document</td>
-                                        <td class="w-25">You create
-                                            .02/10/25</td>
+                                        <td class="w-25">You create.02/10/25</td>
                                         <td>me</td>
                                         <td>My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
                                     </tr>
                                     <tr>
                                         <td>document</td>
@@ -201,8 +248,7 @@
                                             Modified.02/10/25</td>
                                         <td>me</td>
                                         <td>My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
                                     </tr>
                                     <tr>
                                         <td></td>
