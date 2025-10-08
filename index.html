@@ -29,12 +29,12 @@
                 grid-template-columns: 300px auto 50px ;
                 height: 92vh;
             }
-            .sidebar-btn :hover{
-                /* background: blue; */
+             /* .sidebar_btn :hover{
+                background: blue;
                 border: blue;
-            }
+            }  */
             
-            .sidebar-option :hover{
+            .sidebar_option :hover{
                 background-color: lightgray;
                 cursor: pointer;
                 color: blue;
@@ -51,18 +51,26 @@
 
             }
             
-           
-            .dropdown-manu{
-                margin-top: 10px;
-                display: none;
-                background-color: #141212;
-                color:white;
-                width: 200px;
-                border-radius: 10px;
-
+            .sidebar_btn{
+                position: relative;
             }
+            .dropdown-manu{
+                cursor: pointer;
+                position: absolute;
+                /* margin-top: 10px; */
+                display: none;
+                background-color: #241e1e;
+                /* width: 130px; */
+                color:white;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+            }
+            .sidebar_btn:hover .dropdown-manu{
+            display: block;
+            }
+
             .dropdown-manu ul{
-                width: 200px;
+                
                 list-style-type: none;
                 text-align: left;
                 padding:20px ;
@@ -71,8 +79,8 @@
             }
             .logo img{
                 /* background-color: #000; */
-                height: 40px;
-                width: 200px;
+                height: 50px;
+                width: 300px;
                 color: #000;
                 border-radius: 10px;
                 padding: 0px 10px;
@@ -90,22 +98,73 @@
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
+            
             .table-body td i{
                 font-size: 20px;
                 /* text-align: center; */
             }
-           .tab.active {
-      background-color: blue;
-      color: white;
-      border-radius: 10px;
-    }
 
-    .content {
-      display: none;
-    }
-    .content.active {
-      display: block;
-    }
+            .content {
+                display: none;
+            }
+            .content.active {
+                display: block;
+            }
+            .dropdown-pop{
+                position: relative;
+            }
+            .dropdown-setting{
+                cursor: pointer;
+                position: absolute;
+                display: none;
+                background-color: #241e1e;
+                color:white;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+            }
+            .dropdown-pop:hover .dropdown-setting{
+            display: block;
+            }
+            .dropdown-setting ul{
+                list-style-type: none;
+                text-align: left;
+                padding:20px ;
+                /* margin-top: 15px; */
+                font-size: 20px;
+            }
+             .dropdown{
+            position: relative;
+            /* text-align: center; */
+         }
+         .dropdown-content{
+            cursor: pointer;
+                position: absolute;
+                display: none;
+                background-color: #241e1e;
+                color:white;
+                right: 10px;
+                /* font-size: 15px; */
+                /* border-radius: 10px; */
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+         }
+
+         .dropdown:hover .dropdown-content{
+            display: block;
+         }
+         .dropdown-content ul{
+                list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 10px 0px;
+                font-size: 20px;
+            }
+            .dropdown-content ul li{
+                padding: 5px 20px; 
+                width: 275px;
+            }
+            .dropdown-content ul :hover{
+                background-color: hsl(0, 1%, 21%);
+            }
             
         </style>
     </head>
@@ -114,7 +173,7 @@
         <nav
             class="d-flex justify-content-between align-items-center px-3 py-2 ">
             <div class="logo d-flex align-items-center me-4 ">
-                <img src="image.png" alt class="w-75">
+                <img src="image.png" alt>
                 <!-- <span class="fs-4 m-2 ">Drive</span> -->
             </div>
             <div class="nev-input border rounded-pill px-3 py-1 w-100  "
@@ -129,721 +188,637 @@
                 </span>
             </div>
             <div class="nav-icons" style="cursor: pointer;">
-                <span class="fs-4 d-flex justify-content-evenly "
+                <span class="fs-4 d-flex justify-content-evenly"
                     style="width: 150px;">
                     <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
                     <i class="fa-regular fa-circle-check"></i>
                     <i class="fa-solid fa-gear"></i>
-                    <i class="fa-regular fa-circle-user"></i>
+                    <i class="dropdown-pop fa-regular fa-circle-user"></i>
+                    <div class="dropdown-setting ">
+                        <ul>
+                            <li>Sign in</li>
+                            <li>Sign out</li>
+                        </ul>
+                    </div>
                 </span>
             </div>
         </nav>
-        <!-- Sidebar -->
-        <div>
-            <div class="container-fluid ">
+        <!-- Sidebar and main content -->
+        <div class="container-fluid ">
 
-                <!-- Sidebar (Left) -->
-                <div class="Sidebar">
-                    <div class="d-grid m-2" style="width: 230px;">
-                        <div class=" sidebar-btn mb-3 ms-2">
-                            <button
-                                class=" text-light bg-primary d-flex align-items-center rounded-pill"
-                                style="height: 40px; width: 110px; z-index: 20px;">
-                                <span class="ms-2 fs-5">
-                                    <i class="fa-solid fa-plus me-2"></i>
-                                    New</span>
+            <!-- Sidebar (Left) -->
+            <div class="Sidebar">
+                <div class="d-grid m-2" style="width: 230px;">
+                    <div class=" sidebar_btn mb-3 ms-2">
+                        <button
+                            class=" add_btn text-light bg-primary d-flex align-items-center rounded-pill"
+                            style="height: 40px; width: 110px; z-index: 20px;">
+                            <span class="ms-2 fs-5">
+                                Add New</span>
 
-                            </button>
-                            <div class="dropdown-manu">
-                                <ul>
-                                    <li><i class="fa-regular fa-file"></i> New
-                                        File</li>
-                                    <li><i class="fa-regular fa-file"></i> File
-                                        Upload</li>
-                                    <li><i class="fa-regular fa-folder"></i>
-                                        Folder Upload</li>
-                                </ul>
+                        </button>
+                        <div class="dropdown-manu">
+                            <ul>
+                                <li><i class="fa-regular fa-file"></i> New
+                                    File</li>
+                                <li><i class="fa-regular fa-file"></i> File
+                                    Upload</li>
+                                <li><i class="fa-regular fa-folder"></i>
+                                    Folder Upload</li>
+                            </ul>
 
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Options -->
+                    <div class=" sidebar-content mt-3 mx-2 w-100">
+                        <div class="list-group">
+                            <div
+                                class="  sidebar_option tab active d-flex align-items-center tab   ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-solid fa-house me-2 active"></i>Home</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                                    <i
+                                        class="fa-solid fa-hard-drive me-2"></i>My
+                                    Drive</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-solid fa-users me-2"></i>Shared
+                                    with me</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center   ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2 ">
+                                    <i
+                                        class="fa-regular fa-clock me-2"></i>Recent</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-regular fa-star me-2"></i>Starred</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-solid fa-trash me-2"></i>Bin</span>
+                            </div>
+                            <hr>
+                            <div
+                                class="sidebar_option d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">Storage</span>
                             </div>
                         </div>
-
-                        <!-- Sidebar Options -->
-                        <div class=" sidebar-content mt-3 mx-2 w-100">
-                            <div class="list-group">
-                                <div
-                                    class="  sidebar-option tab active-tab d-flex align-items-center tab   ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                        <i
-                                            class="fa-solid fa-house me-2 active"></i>Home</span>
-                                </div>
-                                <div
-                                    class="sidebar-option tab d-flex align-items-center  ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">
-                                        <i
-                                            class="fa-solid fa-hard-drive me-2"></i>My
-                                        Drive</span>
-                                </div>
-                                <div
-                                    class="sidebar-option tab d-flex align-items-center  ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                        <i
-                                            class="fa-solid fa-users me-2"></i>Shared
-                                        with me</span>
-                                </div>
-                                <div
-                                    class="sidebar-option tab d-flex align-items-center   ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2 ">
-                                        <i
-                                            class="fa-regular fa-clock me-2"></i>Recent</span>
-                                </div>
-                                <div
-                                    class="sidebar-option tab d-flex align-items-center  ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                        <i
-                                            class="fa-regular fa-star me-2"></i>Starred</span>
-                                </div>
-                                <div
-                                    class="sidebar-option d-flex align-items-center  ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                        <i
-                                            class="fa-solid fa-trash me-2"></i>Bin</span>
-                                </div>
-                                <hr>
-                                <div
-                                    class="sidebar-option d-flex align-items-center  ">
-                                    <span
-                                        class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">Storage</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="mt-1 ms-2 ps-3">
-                            <span class="d-block fs-6 mb-1">7GB of 15GB
-                                used</span>
-                            <div class="progress " style="height: 15px;">
-                                <div class="progress-bar "
-                                    role="progressbar"
-                                    style="width: 45%;"></div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
 
-                <!-- Main Content (Right) -->
-                <div class="main-content mt-2 pt-4 px-3">
-                    <!-- Homepage Section -->
-                    <div class="content active"data-target="home">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
+                    <!-- Progress Bar -->
+                    <div class="mt-1 ms-2 ps-3">
+                        <span class="d-block fs-6 mb-1">7GB of 15GB
+                            used</span>
+                        <div class="progress " style="height: 15px;">
+                            <div class="progress-bar "
+                                role="progressbar"
+                                style="width: 45%;"></div>
                         </div>
                     </div>
-                    <!-- My Drive Section -->
-                    <div class="content"data-target="drive">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Shared Section -->
-                    <div class="content"data-target="shared">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Recent Section -->
-                    <div class="content"data-target="recent">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Starred Section -->
-                    <div class="content"data-target="starred">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Bin Section -->
-                    <div class="content"data-target="bin">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Homepage Section -->
-                    <div class="content"data-target="store">
-                        <div>
-                            <h3>Home</h3>
-                        </div>
-                        <div class="home-table-data mt-5 ">
-                            <table class=" w-100">
-                                <thead class="table-head">
-
-                                    <th>File Name</th>
-                                    <th>Reason Suggested</th>
-                                    <th>Owner</th>
-                                    <th>Location</th>
-                                    <th></th>
-
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You open .02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                            <!-- <div class="dropdown- sub-manu">
-                                                <ul>
-                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
-                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
-                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
-                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
-                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
-                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
-                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
-                                                </ul>
-
-                                            </div> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i
-                                                class="fa-solid fa-file-lines"></i>
-                                            document</td>
-                                        <td class="w-25">You
-                                            create.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td><i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa-solid fa-image"></i>
-                                            image</td>
-                                        <td class="w-25">You
-                                            Modified.02/10/25</td>
-                                        <td><i
-                                                class="fa-regular fa-circle-user"></i>
-                                            me</td>
-                                        <td> <i
-                                                class="fa-regular fa-hard-drive"></i>
-                                            My Drive</td>
-                                        <td><i
-                                                class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
 
                 </div>
-                <div class=" rightbar">
+            </div>
 
+            <!-- Main Content (Right) -->
+            <div class="main-content mt-2 pt-4 px-3 ">
+                <!-- Homepage Section -->
+                <div class="content active" data-target="home">
+                    <div>
+                        <h3>Home</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td class="dropdown"><i class="fa-solid fa-ellipsis-vertical sidebar_btn"></i>
+                                        <div class="dropdown-content">
+                                            <ul>
+                                                <li><i class="fa-solid fa-expand"></i> Open With</li>
+                                                <li><i class="fa-solid fa-download"></i> Download</li>
+                                                <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+                                                <hr>
+                                                <li><i class="fa-solid fa-user-plus"></i> Shared</li>
+                                                <li><i class="fa-regular fa-copy"></i> Copy File</li>
+                                                <li><i class="fa-regular fa-star"></i> Rtarred</li>
+                                                <li><i class="fa-solid fa-circle-info"></i> File Information</li>
+                                                <li><i class="fa-solid fa-trash"></i> Move to Bin</li>
+                                            </ul>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- My Drive Section -->
+                <div class="content" data-target="drive">
+                    <div>
+                        <h3>My Drive</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i>
+                                        <!-- <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Shared Section -->
+                <div class="content" data-target="shared">
+                    <div>
+                        <h3>Shareed By Me</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i>
+                                        <!-- <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Recent Section -->
+                <div class="content" data-target="recent">
+                    <div>
+                        <h3>Recent</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i>
+                                        <!-- <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Starred Section -->
+                <div class="content" data-target="starred">
+                    <div>
+                        <h3>Starred</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i>
+                                        <!-- <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Bin Section -->
+                <div class="content" data-target="bin">
+                    <div>
+                        <h3>Bin</h3>
+                    </div>
+                    <div class="home-table-data mt-5 ">
+                        <table class=" w-100">
+                            <thead class="table-head">
+
+                                <th>File Name</th>
+                                <th>Reason Suggested</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th></th>
+
+                            </thead>
+                            <tbody class="table-body">
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You open .02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i>
+                                        <!-- <div class="dropdown- sub-manu">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-expand"></i>Open With</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Download</li>
+                                                    <li><i class="fa-solid fa-pen-to-square"></i>Rename</li>
+                                                    <li><i class="fa-solid fa-user-plus"></i>Shared</li>
+                                                    <li><i class="fa-regular fa-copy"></i>Copy File</li>
+                                                    <li><i class="fa-regular fa-star"></i>Rtarred</li>
+                                                    <li><i class="fa-regular fa-circle-info"></i>File Information</li>
+                                                    <li><i class="fa-solid fa-trash"></i>Move to Bin</li>
+                                                </ul>
+
+                                            </div> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i
+                                            class="fa-solid fa-file-lines"></i>
+                                        document</td>
+                                    <td class="w-25">You
+                                        create.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td><i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-image"></i>
+                                        image</td>
+                                    <td class="w-25">You
+                                        Modified.02/10/25</td>
+                                    <td><i
+                                            class="fa-regular fa-circle-user"></i>
+                                        me</td>
+                                    <td> <i
+                                            class="fa-regular fa-hard-drive"></i>
+                                        My Drive</td>
+                                    <td><i
+                                            class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                <!-- <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class=" rightbar">
 
             </div>
 
         </div>
+
         <script>
             const mode= document.querySelector("#mode");
             let typeMode ="light";
@@ -859,24 +834,31 @@
                 }
                 console.log(typeMode)
             })
+            const btn=document.querySelector(".sidebar_btn");
+            const dropdown=document.querySelector("dropdown-manu");
+            btn.forEach((sidebar_btn) => {
+              sidebar_btn.addEventListener("click", () => {
+                // Remove 'active' from all tabs and contents
+                btn.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+              });
+            });
+            // Tab Switching Functionality
             const tabs = document.querySelectorAll(".tab");
             const contents = document.querySelectorAll(".content");
 
-            tabs.forEach(tab => {
-                tab.addEventListener("click", () => {
-                // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove("active-tab"));
-                // Add active class to clicked tab
-                tab.classList.add("active-tab");
+            tabs.forEach((tab, index) => {
+              tab.addEventListener("click", () => {
+                // Remove 'active' from all tabs and contents
+                tabs.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
 
-                // Hide all content sections
-            contents.forEach(content => content.classList.remove("active"));
-
-            // Show the target section
-           const targetId = tab.getAttribute("data-target");
-           document.getElementById(targetId).classList.add("active");
-      });
-    });
+                // Add 'active' to clicked tab and matching content
+                tab.classList.add("active");
+                contents[index].classList.add("active");
+                
+              });
+            });
         </script>
 
         <script
