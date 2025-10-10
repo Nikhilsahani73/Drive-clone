@@ -45,27 +45,28 @@
                 padding: 0px 10px;
 
             }
-            .dropdown-pop{
-                position: relative;
-            }
-            .dropdown-setting{
-                cursor: pointer;
-                position: absolute;
-                display: none;
-                background-color: #241e1e;
-                color:white;
-                border-radius: 10px;
-                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
-            }
-            .dropdown-pop:hover .dropdown-setting{
-            display: block;
-            }
-            .dropdown-setting ul{
+            .dropdown-user ul{
                 list-style-type: none;
-                text-align: left;
-                padding:20px ;
-                /* margin-top: 15px; */
-                font-size: 20px;
+                display: none;
+                width: 140px;
+                position: absolute;
+                right: 25px;
+                background-color: #202122;
+                padding: 0;
+                margin: 0;
+                /* border-radius: 10px; */
+                top: 50px;
+            }
+            .user-dropdown:hover .dropdown-user ul{
+                display: block;
+            }
+            .dropdown-user ul li{
+                padding:  0px 10px 10px;
+            }
+            .dropdown-user ul li :hover{
+                margin: 0px 10px ;
+                background-color: blue;
+  
             }
             /* header */
 
@@ -82,33 +83,64 @@
             .sidebar_btn{
                 position: relative;
             }
-            .dropdown-manu{
+            .dropdown-manu ul{
                 cursor: pointer;
                 position: absolute;
                 display: none;
-                background-color: #241e1e;
+                background-color: #202122;
                 color:white;
-                border-radius: 10px;
+                /* border-radius: 10px; */
                 box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
-            }
-            .sidebar_btn:hover .dropdown-manu{
-            display: block;
-            }
-
-            .dropdown-manu ul{
-                
                 list-style-type: none;
                 text-align: left;
-                padding:20px ;
+                padding:0px ;
+                margin: 0px;
                 /* margin-top: 15px; */
                 font-size: 20px;
+                width: 250px;
             }
+            .dropdown-manu ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-manu li:hover {
+                background-color: black;
+            }
+            
+            hr{
+                margin: 0px;
+            }
+            .sidebar_btn:hover .dropdown-manu ul{
+            display: block;
+            }
+            .overly {
+                display: none; /* Hidden by default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.6);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .overly.active {
+                display: flex;
+            }
+
             /* add button */
             /* tabs */
              .sidebar_option :hover{
                 background-color: lightgray;
                 cursor: pointer;
                 color: blue;
+            }
+            .sidebar_option.active span{
+                background-color: blue;
+                color: white;
+                border-radius: 20px;
             }
             .content {
                 display: none;
@@ -156,17 +188,20 @@
                 </span>
             </div>
             <div class="nav-icons" style="cursor: pointer;">
-                <span class="fs-4 d-flex justify-content-evenly"
+                <span class="fs-4 d-flex justify-content-evenly align-items-center"
                     style="width: 150px;">
                     <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
                     <i class="fa-regular fa-circle-check"></i>
                     <i class="fa-solid fa-gear"></i>
-                    <i class="dropdown-pop fa-regular fa-circle-user"></i>
-                    <div class="dropdown-setting ">
-                        <ul>
-                            <li>Sign in</li>
-                            <li>Sign out</li>
-                        </ul>
+                    <div class="user-dropdown position: relative">
+                        <i class="user fa-regular fa-circle-user"></i>
+                        <div class="dropdown-user ">
+                            <ul>
+                                <li >Sign in</li>
+                                <hr>
+                                <li>Sign out</li>
+                            </ul>
+                        </div>
                     </div>
                 </span>
             </div>
@@ -187,14 +222,27 @@
                         </button>
                         <div class="dropdown-manu">
                             <ul>
-                                <li><i class="fa-regular fa-file"></i> New
+                                <li id="addfile"><i class="fa-regular fa-file"></i> New
                                     File</li>
+                                    <hr>
                                 <li><i class="fa-regular fa-file"></i> File
                                     Upload</li>
                                 <li><i class="fa-regular fa-folder"></i>
                                     Folder Upload</li>
                             </ul>
 
+                        </div>
+                        <div class="overly" id="popup">
+                            <div class="overly-content bg-light w-25 text-dark p-3 rounded-0">
+                                <h4>Add File</h4>
+                                <span>
+                                    <input type="text"placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
+                                </span>
+                                <div >
+                                    <button id="cancelBtn" >Cencel</button>
+                                    <button id="cancelBtn">Create</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -409,6 +457,24 @@
         </div>
 
         <script>
+            const addFileBtn = document.getElementById('addfile');
+            const popup = document.getElementById('popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            addFileBtn.addEventListener('click', () => {
+            popup.classList.add('active');
+        });
+
+            cancelBtn.addEventListener('click', () => {
+            popup.classList.remove('active');
+        });
+
+        // Optional: close popup when clicking outside of content
+            popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('active');
+                }
+            });
             const mode= document.querySelector("#mode");
             let typeMode ="light";
             mode.addEventListener("click",()=>{

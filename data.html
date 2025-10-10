@@ -40,6 +40,44 @@
       background-color: white;
       color: #000;
     }
+    
+      .dropdown-Setting ul{
+    list-style-type: none;
+    display: none;
+    width: 140px;
+    position: absolute;
+    right: 25px;
+    background-color: #202122;
+    padding: 0px 10px 10px;
+    border-radius: 10px;
+    top: 70px;
+  }
+   .setting-dropdown:hover .dropdown-Setting ul{
+    display: block;
+  }
+    .dropdown-user ul{
+    list-style-type: none;
+    display: none;
+    width: 140px;
+    position: absolute;
+    right: 25px;
+    background-color: #202122;
+    padding: 0;
+    margin: 0;
+    /* border-radius: 10px; */
+    top: 70px;
+  }
+   .user-dropdown:hover .dropdown-user ul{
+    display: block;
+  }
+  .dropdown-user ul li{
+    padding:  0px 10px 10px;
+  }
+  .dropdown-user ul li :hover{
+    margin: 0px 10px ;
+    background-color: blue;
+  
+  }
 
     .main-content {
       background-color: #121314;
@@ -51,6 +89,8 @@
       border-bottom: 1px solid;
       padding-top: 10px;
       padding-bottom: 10px;
+      /* display: flex; */
+      /* justify-content: space-between; */
     }
 
     .table-body td i {
@@ -61,7 +101,7 @@
     .tab.active {
       background-color: blue;
       color: white;
-      border-radius: 10px;
+      border-radius: 20px;
     }
 
     .content {
@@ -70,6 +110,32 @@
     .content.active {
       display: block;
     }
+  .overly {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overly.active {
+  display: flex;
+}
+
+.overly-content {
+    /* padding: 20px; */
+    border: 1px solid;
+    /* background: white; */
+    /* width: 400px; */
+    /* height: 200px; */
+    /* color: black; */
+    
+}
   </style>
   </head>
   <body>
@@ -92,149 +158,284 @@
         </span>
       </div>
       <div class="nav-icons" style="cursor: pointer">
-        <span class="fs-4 d-flex justify-content-evenly" style="width: 150px">
+        <span class="fs-4 d-flex justify-content-evenly align-items-center" style="width: 150px">
           <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
           <i class="fa-regular fa-circle-check"></i>
-          <i class="fa-solid fa-gear"></i>
-          <i class="fa-regular fa-circle-user"></i>
+          <div class="setting-dropdown position: relative">
+            <i class="fa-solid fa-gear"></i>
+            <div class="dropdown-Setting">
+              <ul>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+          <div class="user-dropdown position: relative">
+            <i class="user fa-regular fa-circle-user"></i>
+            <div class="dropdown-user ">
+              <ul>
+                <li class=" border-bottom">Sign in</li>
+                <li>Sign out</li>
+              </ul>
+            </div>
+          </div>
         </span>
       </div>
     </nav>
 
     <!-- Sidebar and main -->
-    
-      <div class="container-fluid">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <div class="d-grid m-2" style="width: 230px">
-            <div class="sidebarbtn mb-3 ms-2">
-              <button
-                class="text-light bg-primary d-flex align-items-center rounded-pill"
-                style="height: 40px; width: 110px">
-                <span class="ms-1 fs-5">Add New</span>
-              </button>
-            </div>
 
-            <!-- Sidebar Options -->
-            <div class="sidebar-content mt-3 mx-2 w-100">
-              <div class="list-group">
-                <div class="sidebar-option tab active d-flex align-items-center" data-target="home">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-solid fa-house me-2"></i>Home
-                  </span>
-                </div>
-                <div class="sidebar-option tab d-flex align-items-center" data-target="drive">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-solid fa-hard-drive me-2"></i>My Drive
-                  </span>
-                </div>
-                <div class="sidebar-option tab d-flex align-items-center" data-target="shared">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-solid fa-users me-2"></i>Shared with me
-                  </span>
-                </div>
-                <div class="sidebar-option tab d-flex align-items-center" data-target="recent">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-regular fa-clock me-2"></i>Recent
-                  </span>
-                </div>
-                <div class="sidebar-option tab d-flex align-items-center" data-target="starred">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-regular fa-star me-2"></i>Starred
-                  </span>
-                </div>
-                <div class="sidebar-option tab d-flex align-items-center" data-target="bin">
-                  <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                    <i class="fa-solid fa-trash me-2"></i>Bin
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="mt-1 ms-2 ps-3">
-              <span class="d-block fs-6 mb-1">7GB of 15GB used</span>
-              <div class="progress" style="height: 15px">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 45%"></div>
+    <div class="container-fluid">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="d-grid m-2" style="width: 230px">
+          <div class="sidebarbtn mb-3 ms-2">
+            <button
+              class="text-light bg-primary d-flex align-items-center rounded-pill"
+               id="addFileBtn" style="height: 40px; width: 110px">
+              <span class="ms-1 fs-5">Add New</span>
+            </button>
+          </div>
+          <div class="overly" id="popup">
+            <div class="overly-content bg-light w-25 text-dark p-3 rounded-0">
+              <h4>Add File</h4>
+              <span>
+                <input type="text"placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
+              </span>
+              <div >
+                <button id="cancelBtn" >Cencel</button>
+                <button id="cancelBtn">Create</button>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Main Content -->
-        <div class="main-content p-3">
-          <!-- Home -->
-          <div class="content active" id="home">
-            <h3>Home</h3>
-            <table class="w-100 mt-4">
-              <thead class="table-head">
-                <tr>
-                  <th>File Name</th>
-                  <th>Reason Suggested</th>
-                  <th>Owner</th>
-                  <th>Location</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody class="table-body">
-                <!-- json data -->
-              </tbody>
-            </table>
+          <!-- Sidebar Options -->
+          <div class="sidebar-content mt-3 mx-2 w-100">
+            <div class="list-group">
+              <div class="sidebar-option tab active d-flex align-items-center"
+                data-target="home">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-house me-2"></i>Home
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="drive">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-hard-drive me-2"></i>My Drive
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="shared">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-users me-2"></i>Shared with me
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="recent">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-regular fa-clock me-2"></i>Recent
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="starred">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-regular fa-star me-2"></i>Starred
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="bin">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-trash me-2"></i>Bin
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="Storage">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  Storage
+                </span>
+              </div>
+            </div>
           </div>
 
-          <!-- Drive -->
-          <div class="content" id="drive">
-            <h3>My Drive</h3>
-            <table class="w-100 mt-4">
-              <thead class="table-head">
-                <tr>
-                  <th>File Name</th>
-                  <th>Owner</th>
-                  <th>Date Modified</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody class="table-body table-body-drive">
-                <!-- json data -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Shared -->
-          <div class="content" id="shared">
-            <h3>Shared with Me</h3>
-            <p>Files and folders shared with you appear here.</p>
-          </div>
-
-          <!-- Recent -->
-          <div class="content" id="recent">
-            <h3>Recent</h3>
-            <p>Recently accessed files.</p>
-          </div>
-
-          <!-- Starred -->
-          <div class="content" id="starred">
-            <h3>Starred</h3>
-            <p>Your starred items.</p>
-          </div>
-
-          <!-- Bin -->
-          <div class="content" id="bin">
-            <h3>Bin</h3>
-            <p>Deleted items stored here temporarily.</p>
+          <!-- Progress Bar -->
+          <div class="mt-1 ms-2 ps-3">
+            <span class="d-block fs-6 mb-1">7GB of 15GB used</span>
+            <div class="progress" style="height: 15px">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                style="width: 45%"></div>
+            </div>
           </div>
         </div>
-
-        <!-- Right Sidebar -->
-        <div class="right-sidebar"></div>
       </div>
-    
+
+      <!-- Main Content -->
+      <div class="main-content p-3">
+        <!-- Home -->
+        <div class="content active" id="home">
+          <h3>Home</h3>
+          <table class="w-100 mt-4">
+            <thead class="table-head">
+              <tr>
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <!-- json data -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Drive -->
+        <div class="content" id="drive">
+          <h3>My Drive</h3>
+          <table class="w-100 mt-4">
+            <thead class="table-head">
+              <tr>
+                <th>File Name</th>
+                <th>Owner</th>
+                <th>Date Modified</th>
+                <th>Size</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table-body table-body-drive">
+              <!-- json data -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Shared -->
+        <div class="content" id="shared">
+          <h3>Shared with Me</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Shared By</th>
+                <th>Date Shared</th>
+                <!-- <th>Location</th> -->
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Shared ">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent -->
+        <div class="content" id="recent">
+          <h3>Recent</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>File Size</th>
+                <th>Location</th>
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Recent">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Starred -->
+        <div class="content" id="starred">
+          <h3>Starred</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>File Size</th>
+                <th>Location</th>
+                <th></th>
+              </thead>
+              <tbody class="table-body table-body-Starred">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bin -->
+        <div class="content" id="bin">
+          <h3>Bin</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Bin">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--Storage  Section -->
+        <div class="content" id="Storage">
+          <div>
+            <h3>Storage</h3>
+          </div>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Storage used</th>
+
+              </thead>
+              <tbody class="table-body table-body-Storage">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="right-sidebar"></div>
+    </div>
 
     <script>
+      const addFileBtn = document.getElementById('addFileBtn');
+  const popup = document.getElementById('popup');
+  const cancelBtn = document.getElementById('cancelBtn');
+
+  addFileBtn.addEventListener('click', () => {
+    popup.classList.add('active');
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    popup.classList.remove('active');
+  });
+
+  // Optional: close popup when clicking outside of content
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      popup.classList.remove('active');
+    }
+  });
     // Dark/Light Mode Toggle
     const mode = document.querySelector("#mode");
     let typeMode = "light";
@@ -268,6 +469,8 @@
         document.getElementById(target).classList.add("active");
       });
     });
+    console.table(filesData);
+
   </script>
 
     <script
