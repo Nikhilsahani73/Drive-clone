@@ -1,126 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-            rel="stylesheet" />
-    </head>
-    <body><div class="home-table-data mt-5 ">
-                        <table class=" w-100">
-                            <thead class="table-head">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- Font Awesome CDN -->
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  rel="stylesheet" />
+</head>
+<body>
+  <!-- Upload File Button -->
+<button id="uploadBtn">
+  <i class="fa-solid fa-upload"></i> Upload File
+</button>
 
-                                <th>File Name</th>
-                                <th>Reason Suggested</th>
-                                <th>Owner</th>
-                                <th>Location</th>
-                                <th></th>
+<!-- Hidden file input -->
+<input type="file" id="fileInput" style="display:none" />
 
-                            </thead>
-                            <tbody class="table-body">
-                                <tr>
-                                    <td><i
-                                            class="fa-solid fa-file-lines"></i>
-                                        document</td>
-                                    <td class="w-25">You open .02/10/25</td>
-                                    <td><i
-                                            class="fa-regular fa-circle-user"></i>
-                                        me</td>
-                                    <td><i
-                                            class="fa-regular fa-hard-drive"></i>
-                                        My Drive</td>
-                                    <td class="dropdown"><i class="fa-solid fa-ellipsis-vertical sidebar_btn"></i>
-                                        <div class="dropdown-content">
-                                            <ul>
-                                                <li><i class="fa-solid fa-expand"></i> Open With</li>
-                                                <li><i class="fa-solid fa-download"></i> Download</li>
-                                                <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
-                                                <li><i class="fa-solid fa-user-plus"></i> Shared</li>
-                                                <li><i class="fa-regular fa-copy"></i> Copy File</li>
-                                                <li><i class="fa-regular fa-star"></i> Rtarred</li>
-                                                <li><i class="fa-solid fa-circle-info"></i> File Information</li>
-                                                <li><i class="fa-solid fa-trash"></i> Move to Bin</li>
-                                            </ul>
+<!-- Example Drive Table -->
+<table class="drive-table">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Owner</th>
+      <th>Reason</th>
+      <th>Size</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="table-body-drive"></tbody>
+</table>
 
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><i
-                                            class="fa-solid fa-file-lines"></i>
-                                        document</td>
-                                    <td class="w-25">You
-                                        create.02/10/25</td>
-                                    <td><i
-                                            class="fa-regular fa-circle-user"></i>
-                                        me</td>
-                                    <td><i
-                                            class="fa-regular fa-hard-drive"></i>
-                                        My Drive</td>
-                                    <td><i
-                                            class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa-solid fa-image"></i>
-                                        image</td>
-                                    <td class="w-25">You
-                                        Modified.02/10/25</td>
-                                    <td><i
-                                            class="fa-regular fa-circle-user"></i>
-                                        me</td>
-                                    <td> <i
-                                            class="fa-regular fa-hard-drive"></i>
-                                        My Drive</td>
-                                    <td><i
-                                            class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                <!-- <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
+<script>
+  // 🔹 Your example JSON data
+  let filesData = [
+    {
+      name: "Report.pdf",
+      type: getFileIcon("Report.pdf"),
+      owner: "me",
+      reason: "july 02/10/25",
+      size: "1GB",
+      modified: "You opened 02/10/25",
+      location: "My Drive"
+    },
+    {
+      name: "Design.png",
+      type: getFileIcon("Design.png"),
+      owner: "me",
+      reason: "july 03/10/25",
+      size: "132KB",
+      modified: "You opened 02/10/25",
+      location: "My Drive"
+    },
+    {
+      name: "Video.mp4",
+      type: getFileIcon("Video.mp4"),
+      owner: "John",
+      reason: "july 05/10/25",
+      size: "2.5GB",
+      modified: "Modified 03/10/25",
+      location: "Shared with me"
+    },
+    {
+      name: "Document.docx",
+      type: getFileIcon("Document.docx"),
+      owner: "me",
+      reason: "july 07/10/25",
+      size: "1.5GB",
+      modified: "Shared 05/10/25",
+      location: "My Drive"
+    }
+  ];
 
-                
+  const uploadBtn = document.getElementById("uploadBtn");
+  const fileInput = document.getElementById("fileInput");
+  const tableBodyDrive = document.querySelector(".table-body-drive");
 
-            <style>
-         .dropdown{
-            position: relative;
-         }
-         .dropdown-content{
-            cursor: pointer;
-                position: absolute;
-                display: block;
-                background-color: #241e1e;
-                color:white;
-                /* border-radius: 10px; */
-                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
-         }
+  // 🔹 Populate Drive Table (initial)
+  function renderDriveTable() {
+    tableBodyDrive.innerHTML = ""; // Clear existing rows
+    filesData.forEach((file) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><i class="fa-solid fa-${file.type}"></i> ${file.name}</td>
+        <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
+        <td>${file.reason}</td>
+        <td>${file.size}</td>
+        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+      `;
+      tableBodyDrive.appendChild(row);
+    });
+  }
 
-         .dropdown:hover .dropdown-content{
-            display: block;
-         }
-         .dropdown-content ul{
-                list-style-type: none;
-                text-align: left;
-                padding:0px ;
-                margin: 10px 0px;
-                font-size: 20px;
-            }
-            .dropdown-content ul li{
-                padding: 10px 20px; 
-                width: 275px;
-            }
-            .dropdown-content ul :hover{
-                background-color: hsl(0, 1%, 21%);
-            }
-            </style>
+  // 🔹 File icon selector helper
+  function getFileIcon(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    if (["jpg", "jpeg", "png", "gif"].includes(ext)) return "file-image";
+    if (["pdf"].includes(ext)) return "file-pdf";
+    if (["doc", "docx"].includes(ext)) return "file-word";
+    if (["xls", "xlsx"].includes(ext)) return "file-excel";
+    if (["ppt", "pptx"].includes(ext)) return "file-powerpoint";
+    if (["zip", "rar"].includes(ext)) return "file-archive";
+    if (["mp3", "wav"].includes(ext)) return "file-audio";
+    if (["mp4", "mkv", "mov"].includes(ext)) return "file-video";
+    return "file";
+  }
 
-    </body>
+  // 🔹 On Upload Button Click → Open file manager
+  uploadBtn.addEventListener("click", () => fileInput.click());
+
+  // 🔹 When file selected → Add to Drive tab and table
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Create new file data
+    const newFile = {
+      name: file.name,
+      type: getFileIcon(file.name),
+      owner: "me",
+      reason: new Date().toLocaleDateString("en-GB"),
+      size: formatFileSize(file.size),
+      modified: "Just now",
+      location: "My Drive"
+    };
+
+    // Add to filesData array
+    filesData.push(newFile);
+
+    // Re-render Drive table
+    renderDriveTable();
+
+    // Reset input
+    fileInput.value = "";
+  });
+
+  // 🔹 Helper to format file size
+  function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+    if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + " MB";
+    return (bytes / 1073741824).toFixed(1) + " GB";
+  }
+
+  // 🔹 Initial render
+  renderDriveTable();
+</script>
+
+<!-- Font Awesome (for icons) -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
 </html>

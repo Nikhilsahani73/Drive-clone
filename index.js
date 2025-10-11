@@ -65,7 +65,7 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td>${file.reason}</td>
     <td>${file.size}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td><i class="fa-solid fa-ellipsis-vertical option"></i></td>
   `;
   tableBodyDrive.appendChild(row);
 });

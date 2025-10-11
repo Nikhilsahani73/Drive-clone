@@ -61,11 +61,14 @@
                 display: block;
             }
             .dropdown-user ul li{
-                padding:  0px 10px 10px;
+                padding: 0px 10px 5px;
+                /* background-color: black; */
+                margin: 8px 0px;
+
             }
-            .dropdown-user ul li :hover{
-                margin: 0px 10px ;
-                background-color: blue;
+            .dropdown-user li:hover{
+                /* margin: 0px 10px ; */
+                background-color: black;
   
             }
             /* header */
@@ -129,6 +132,19 @@
             .overly.active {
                 display: flex;
             }
+            
+
+            .overly button{
+                height: 40px;
+                border-radius: 20px;
+                width: 85px;
+                font-size: 20px;
+                margin-left: 10px;
+                background-color: lightgray;
+            }
+            .file-overly button :hover{
+                background-color: blue;
+            }
 
             /* add button */
             /* tabs */
@@ -165,6 +181,39 @@
             .table-body td i{
                 font-size: 20px;
                 /* text-align: center; */
+            }
+            .option{
+                position: relative;
+            }
+            .dropdown-option ul{
+                cursor: pointer;
+                position: absolute;
+                display: block;
+                background-color: #202122;
+                color:white;
+                /* border-radius: 10px; */
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+                list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                /* margin-top: 15px; */
+                font-size: 20px;
+                width: 270px;
+            }
+            .dropdown-option ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-option li:hover {
+                background-color: black;
+            }
+            
+            hr{
+                margin: 0px;
+            }
+            .option:hover .dropdown-option ul{
+            display: block;
             }
         </style>
     </head>
@@ -225,25 +274,30 @@
                                 <li id="addfile"><i class="fa-regular fa-file"></i> New
                                     File</li>
                                     <hr>
-                                <li><i class="fa-regular fa-file"></i> File
+                                <li id="uploadBtn"><i class="fa-regular fa-file"></i> File
                                     Upload</li>
-                                <li><i class="fa-regular fa-folder"></i>
+                                    <input type="file" id="fileInput" style="display: none" />
+
+                                <li id="uploadFolderBtn"><i class="fa-regular fa-folder"></i>
                                     Folder Upload</li>
+                                    <input type="file" id="folderInput" webkitdirectory directory style="display: none" />
                             </ul>
 
                         </div>
+                        <!-- add new popup -->
                         <div class="overly" id="popup">
-                            <div class="overly-content bg-light w-25 text-dark p-3 rounded-0">
+                            <div class="overly-content bg-light w-25 text-dark p-3 " style="border-radius: 20px;">
                                 <h4>Add File</h4>
                                 <span>
                                     <input type="text"placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
                                 </span>
-                                <div >
+                                <div class="file-overly d-flex justify-content-end" >
                                     <button id="cancelBtn" >Cencel</button>
                                     <button id="cancelBtn">Create</button>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
 
                     <!-- Sidebar Options -->
@@ -315,6 +369,23 @@
                             <tbody class="table-body">
                                 <!-- json data -->
                             </tbody>
+                            <!-- <div class="dropdown-option"> -->
+                                <div class="dropdown-option">
+                                    <ul>
+                                        <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 115px;"></i></li>
+                                        <hr>
+                                        <li><i class="fa-solid fa-download"></i> Download</li>
+                                        <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+                                        <li><i class="fa-solid fa-copy"></i> Copy</li>
+                                        <hr>
+                                        <li><i class="fa-solid fa-star"></i> Starred</li>
+                                        <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+                                        <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+                                        <li><i class="fa-solid fa-trash"></i> Bin</li>
+                                    </ul>
+                                </div>
+
+                            <!-- </div> -->
                         </table>
                     </div>
                 </div>
@@ -440,7 +511,7 @@
                             <thead class="table-head">
 
                                 <th>File Name</th>
-                                <th>Storage used</th>
+                                <th class="text-align-end">Storage used</th>
 
                             </thead>
                             <tbody class="table-body table-body-Storage">
@@ -457,6 +528,7 @@
         </div>
 
         <script>
+        // popup button    
             const addFileBtn = document.getElementById('addfile');
             const popup = document.getElementById('popup');
             const cancelBtn = document.getElementById('cancelBtn');
@@ -468,6 +540,49 @@
             cancelBtn.addEventListener('click', () => {
             popup.classList.remove('active');
         });
+        
+        
+        const uploadBtn = document.getElementById("uploadBtn");
+        const fileInput = document.getElementById("fileInput");
+        
+        
+      
+        // When button is clicked → trigger file select dialog
+        uploadBtn.addEventListener("click", () => {
+          fileInput.click();
+        });
+      
+        // When file is selected → handle the file
+        fileInput.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            console.log("Selected file:", file.name);
+            // You can now upload it, preview it, or display it in your table
+          }
+        });
+        const uploadFolderBtn = document.getElementById("uploadFolderBtn");
+        const folderInput = document.getElementById("folderInput");
+      
+        // When the folder upload button is clicked → open the folder picker
+        uploadFolderBtn.addEventListener("click", () => {
+          folderInput.click();
+        });
+      
+        // When folder is selected → handle the files inside
+        folderInput.addEventListener("change", (event) => {
+          const files = event.target.files;
+      
+          if (files.length > 0) {
+            console.log(`Selected folder contains ${files.length} files:`);
+            for (const file of files) {
+              console.log(file.webkitRelativePath); // shows folder/subfolder/filename
+            }
+          } else {
+            console.log("No folder selected");
+          }
+        });
+        
+      
 
         // Optional: close popup when clicking outside of content
             popup.addEventListener('click', (e) => {
