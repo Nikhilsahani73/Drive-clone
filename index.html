@@ -116,6 +116,7 @@
             .sidebar_btn:hover .dropdown-manu ul{
             display: block;
             }
+            /* add new file popup */
             .overly {
                 display: none; /* Hidden by default */
                 position: fixed;
@@ -142,10 +143,12 @@
                 margin-left: 10px;
                 background-color: lightgray;
             }
-            .file-overly button :hover{
+            .file-overly button :hover button{
                 background-color: blue;
             }
-
+            /* add new file popup */
+            
+            
             /* add button */
             /* tabs */
              .sidebar_option :hover{
@@ -182,13 +185,14 @@
                 font-size: 20px;
                 /* text-align: center; */
             }
-            .option{
+            .dropdown-dev{
                 position: relative;
+                /* background-color: blue; */
             }
             .dropdown-option ul{
                 cursor: pointer;
                 position: absolute;
-                display: block;
+                display: none;
                 background-color: #202122;
                 color:white;
                 /* border-radius: 10px; */
@@ -197,6 +201,8 @@
                 text-align: left;
                 padding:0px ;
                 margin: 0px;
+                right:10px;
+                top:30px;
                 /* margin-top: 15px; */
                 font-size: 20px;
                 width: 270px;
@@ -212,7 +218,7 @@
             hr{
                 margin: 0px;
             }
-            .option:hover .dropdown-option ul{
+            .dropdown-dev:hover .dropdown-option ul{
             display: block;
             }
         </style>
@@ -222,7 +228,7 @@
         <nav
             class="d-flex justify-content-between align-items-center px-3 py-2 ">
             <div class="logo d-flex align-items-center me-4 ">
-                <img src="image.png" alt>
+                <img src="images/image.png" alt>
                 <!-- <span class="fs-4 m-2 ">Drive</span> -->
             </div>
             <div class="nev-input border rounded-pill px-3 py-1 w-100  "
@@ -237,7 +243,8 @@
                 </span>
             </div>
             <div class="nav-icons" style="cursor: pointer;">
-                <span class="fs-4 d-flex justify-content-evenly align-items-center"
+                <span
+                    class="fs-4 d-flex justify-content-evenly align-items-center"
                     style="width: 150px;">
                     <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
                     <i class="fa-regular fa-circle-check"></i>
@@ -246,7 +253,7 @@
                         <i class="user fa-regular fa-circle-user"></i>
                         <div class="dropdown-user ">
                             <ul>
-                                <li >Sign in</li>
+                                <li>Sign in</li>
                                 <hr>
                                 <li>Sign out</li>
                             </ul>
@@ -271,65 +278,99 @@
                         </button>
                         <div class="dropdown-manu">
                             <ul>
-                                <li id="addfile"><i class="fa-regular fa-file"></i> New
+                                <li id="addfile"><i
+                                        class="fa-regular fa-file"></i> New
                                     File</li>
-                                    <hr>
-                                <li id="uploadBtn"><i class="fa-regular fa-file"></i> File
+                                <hr>
+                                <li id="uploadBtn"><i
+                                        class="fa-regular fa-file"></i> File
                                     Upload</li>
-                                    <input type="file" id="fileInput" style="display: none" />
+                                <input type="file" id="fileInput"
+                                    style="display: none" />
 
-                                <li id="uploadFolderBtn"><i class="fa-regular fa-folder"></i>
+                                <li id="uploadFolderBtn"><i
+                                        class="fa-regular fa-folder"></i>
                                     Folder Upload</li>
-                                    <input type="file" id="folderInput" webkitdirectory directory style="display: none" />
+                                <input type="file" id="folderInput"
+                                    webkitdirectory directory
+                                    style="display: none" />
                             </ul>
 
                         </div>
                         <!-- add new popup -->
                         <div class="overly" id="popup">
-                            <div class="overly-content bg-light w-25 text-dark p-3 " style="border-radius: 20px;">
+                            <div
+                                class="overly-content bg-light w-25 text-dark p-3 "
+                                style="border-radius: 20px;">
                                 <h4>Add File</h4>
                                 <span>
-                                    <input type="text"placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
+                                    <input type="text"
+                                        id="fileName"
+                                        placeholder="Enter file name"
+                                        class="w-100 my-4 ps-2"
+                                        style="height: 40px;">
                                 </span>
-                                <div class="file-overly d-flex justify-content-end" >
-                                    <button id="cancelBtn" >Cencel</button>
+                                <div
+                                    class="file-overly d-flex justify-content-end">
+                                    <button id="cancelBtn">Cencel</button>
                                     <button id="cancelBtn">Create</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <!-- Sidebar Options -->
                     <div class=" sidebar-content mt-3 mx-2 w-100">
                         <div class="list-group">
-                            <div class="  sidebar_option tab active d-flex align-items-center tab ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                    <i class="fa-solid fa-house me-2 active"></i>Home</span>                                        
+                            <div
+                                class="  sidebar_option tab active d-flex align-items-center tab ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-solid fa-house me-2 active"></i>Home</span>
                             </div>
-                            <div class="sidebar_option tab d-flex align-items-center  ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">
-                                    <i class="fa-solid fa-hard-drive me-2"></i>My Drive</span>
-                             </div>
-                            <div class="sidebar_option tab d-flex align-items-center  ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                    <i class="fa-solid fa-users me-2"></i>Shared with me</span>                                                                           
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                                    <i
+                                        class="fa-solid fa-hard-drive me-2"></i>My
+                                    Drive</span>
                             </div>
-                            <div class="sidebar_option tab d-flex align-items-center   ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2 ">
-                                    <i class="fa-regular fa-clock me-2"></i>Recent</span>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i class="fa-solid fa-users me-2"></i>Shared
+                                    with me</span>
                             </div>
-                            <div class="sidebar_option tab d-flex align-items-center  ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                    <i class="fa-regular fa-star me-2"></i>Starred</span>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center   ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2 ">
+                                    <i
+                                        class="fa-regular fa-clock me-2"></i>Recent</span>
                             </div>
-                            <div class="sidebar_option tab d-flex align-items-center  ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
-                                    <i class="fa-solid fa-trash me-2"></i>Bin</span>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-regular fa-star me-2"></i>Starred</span>
+                            </div>
+                            <div
+                                class="sidebar_option tab d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-2">
+                                    <i
+                                        class="fa-solid fa-trash me-2"></i>Bin</span>
                             </div>
                             <hr>
-                            <div class="sidebar_option tab d-flex align-items-center  ">
-                                <span class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">Storage</span>
+                            <div
+                                class="sidebar_option  d-flex align-items-center  ">
+                                <span
+                                    class=" w-100 fs-5 rounded-pill px-3 py-1 mb-1">Storage</span>
                             </div>
                         </div>
                     </div>
@@ -369,23 +410,37 @@
                             <tbody class="table-body">
                                 <!-- json data -->
                             </tbody>
-                            <!-- <div class="dropdown-option"> -->
-                                <div class="dropdown-option">
-                                    <ul>
-                                        <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 115px;"></i></li>
-                                        <hr>
-                                        <li><i class="fa-solid fa-download"></i> Download</li>
-                                        <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
-                                        <li><i class="fa-solid fa-copy"></i> Copy</li>
-                                        <hr>
-                                        <li><i class="fa-solid fa-star"></i> Starred</li>
-                                        <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-                                        <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
-                                        <li><i class="fa-solid fa-trash"></i> Bin</li>
-                                    </ul>
-                                </div>
+                           
+                            <!-- <div class="dropdown-option">
+                                <ul>
+                                    <li><i class="fa-solid fa-expand"></i> Open
+                                        With <i class="fa-solid fa-caret-right"
+                                            style="text-align: end; width: 115px;"></i></li>
+                                    <hr>
+                                    <li><i class="fa-solid fa-download"></i>
+                                        Download</li>
+                                    <li><i
+                                            class="fa-solid fa-pen-to-square"></i>
+                                        Rename</li>
+                                    <li><i class="fa-solid fa-copy"></i>
+                                        Copy</li>
+                                    <hr>
+                                    <li><i class="fa-solid fa-star"></i>
+                                        Starred</li>
+                                    <li><i class="fa-solid fa-share-nodes"></i>
+                                        Shareed <i
+                                            class="fa-solid fa-caret-right"
+                                            style="text-align: end;width: 135px;"></i></li>
+                                    <li><i class="fa-solid fa-circle-info"></i>
+                                        File Information <i
+                                            class="fa-solid fa-caret-right"
+                                            style="text-align: end;width: 65px;"></i></li>
+                                    <li><i class="fa-solid fa-trash"></i>
+                                        Bin</li>
+                                </ul>
+                            </div> -->
 
-                            <!-- </div> -->
+                            
                         </table>
                     </div>
                 </div>
@@ -526,107 +581,167 @@
             </div>
 
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-        // popup button    
-            const addFileBtn = document.getElementById('addfile');
-            const popup = document.getElementById('popup');
-            const cancelBtn = document.getElementById('cancelBtn');
+            const addFileBtn = document.getElementById("addfile");
+            const popup = document.getElementById("popup");
+            const cancelBtns = popup.querySelectorAll("#cancelBtn");
+            const fileNameInput = document.getElementById("fileName");
+            const fileTableBody = document.querySelector(".table-body-drive");
+            const uploadBtn = document.getElementById("uploadBtn");
+            const fileInput = document.getElementById("fileInput");
 
-            addFileBtn.addEventListener('click', () => {
-            popup.classList.add('active');
-        });
+            const uploadFolderBtn = document.getElementById("uploadFolderBtn");
+            const folderInput = document.getElementById("folderInput");
 
-            cancelBtn.addEventListener('click', () => {
-            popup.classList.remove('active');
-        });
-        
-        
-        const uploadBtn = document.getElementById("uploadBtn");
-        const fileInput = document.getElementById("fileInput");
-        
-        
-      
-        // When button is clicked → trigger file select dialog
-        uploadBtn.addEventListener("click", () => {
-          fileInput.click();
-        });
-      
-        // When file is selected → handle the file
-        fileInput.addEventListener("change", (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            console.log("Selected file:", file.name);
-            // You can now upload it, preview it, or display it in your table
-          }
-        });
-        const uploadFolderBtn = document.getElementById("uploadFolderBtn");
-        const folderInput = document.getElementById("folderInput");
-      
-        // When the folder upload button is clicked → open the folder picker
-        uploadFolderBtn.addEventListener("click", () => {
-          folderInput.click();
-        });
-      
-        // When folder is selected → handle the files inside
-        folderInput.addEventListener("change", (event) => {
-          const files = event.target.files;
-      
-          if (files.length > 0) {
-            console.log(`Selected folder contains ${files.length} files:`);
-            for (const file of files) {
-              console.log(file.webkitRelativePath); // shows folder/subfolder/filename
-            }
-          } else {
-            console.log("No folder selected");
-          }
-        });
-        
-      
-
-        // Optional: close popup when clicking outside of content
-            popup.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                popup.classList.remove('active');
-                }
-            });
-            const mode= document.querySelector("#mode");
-            let typeMode ="light";
-            mode.addEventListener("click",()=>{
-                if(typeMode==="light"){
-                   typeMode ="dark";
-                   document.querySelector("body").classList.add("dark")
-                   document.querySelector("body").classList.remove("light")
-                }else{
-                    typeMode ="light";
-                    document.querySelector("body").classList.add("light")
-                    document.querySelector("body").classList.remove("dark")
-                }
-                console.log(typeMode)
-            })
-            
-            // Tab Switching Functionality
             const tabs = document.querySelectorAll(".tab");
             const contents = document.querySelectorAll(".content");
 
-            tabs.forEach((tab, index) => {
-              tab.addEventListener("click", () => {
-                // Remove 'active' from all tabs and contents
-                tabs.forEach(t => t.classList.remove("active"));
-                contents.forEach(c => c.classList.remove("active"));
+            // --- Helper: Activate Drive tab ---
+            function activateDriveTab() {
+                tabs.forEach((t) => t.classList.remove("active"));
+                contents.forEach((c) => c.classList.remove("active"));
 
-                // Add 'active' to clicked tab and matching content
-                tab.classList.add("active");
-                contents[index].classList.add("active");
-                
-              });
+                // Activate Drive tab
+                const driveTab = [...tabs].find((t) =>
+                    t.innerText.trim().includes("My Drive")
+                );
+                const driveContent = document.querySelector('[data-target="drive"]');
+
+                if (driveTab && driveContent) {
+                    driveTab.classList.add("active");
+                    driveContent.classList.add("active");
+                }
+            }
+
+            // --- Helper: Add file row ---
+            function addFileToDrive(name, owner = "You", size = "-", date = new Date().toLocaleDateString()) {
+                const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td><i class="fa-solid fa-file"></i> ${name}</td>
+                        <td><i class="fa-regular fa-circle-user"></i> ${owner}</td>
+                        <td>${date}</td>
+                        <td>${size}</td>
+                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                    `;
+                fileTableBody.appendChild(row);
+            }
+
+            // --- Add New File Popup ---
+            addFileBtn.addEventListener("click", () => {
+                popup.classList.add("active");
             });
-        </script>
+
+            cancelBtns.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                    if (btn.textContent.trim() === "Create") {
+        const fileName = fileNameInput.value.trim();
+        if (fileName) {
+          addFileToDrive(fileName + ".txt");
+
+          Swal.fire({
+            title: "File Added!",
+            text: `"${fileName}.txt" has been added to My Drive.`,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+          });
+
+          activateDriveTab();
+          fileNameInput.value = "";
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Please enter a file name.",
+            icon: "error",
+            confirmButtonColor: "#d33",
+          });
+        }
+      }
+      popup.classList.remove("active");
+    });
+  });
+
+  // --- Upload File ---
+  uploadBtn.addEventListener("click", () => fileInput.click());
+
+  fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      addFileToDrive(file.name, "You", `${(file.size / 1024).toFixed(1)} KB`);
+
+      Swal.fire({
+        title: "File Uploaded!",
+        text: `"${file.name}" has been uploaded to My Drive.`,
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+      });
+
+      activateDriveTab();
+      fileInput.value = "";
+    }
+  });
+
+  // --- Upload Folder ---
+  uploadFolderBtn.addEventListener("click", () => folderInput.click());
+
+  folderInput.addEventListener("change", (event) => {
+    const files = event.target.files;
+    if (files.length > 0) {
+      let count = 0;
+      for (const file of files) {
+        addFileToDrive(file.webkitRelativePath, "You", `${(file.size / 1024).toFixed(1)} KB`);
+        count++;
+      }
+
+      Swal.fire({
+        title: "Folder Uploaded!",
+        text: `${count} files added to My Drive.`,
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+      });
+
+      activateDriveTab();
+      folderInput.value = "";
+    }
+  });
+
+  // --- Click outside popup to close ---
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.classList.remove("active");
+  });
+
+  // --- Dark Mode Toggle ---
+  const mode = document.querySelector("#mode");
+  let typeMode = "light";
+  mode.addEventListener("click", () => {
+    if (typeMode === "light") {
+      typeMode = "dark";
+      document.body.classList.add("dark");
+      document.body.classList.remove("light");
+    } else {
+      typeMode = "light";
+      document.body.classList.add("light");
+      document.body.classList.remove("dark");
+    }
+    console.log(typeMode);
+  });
+
+  // --- Tab Switching ---
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      contents.forEach((c) => c.classList.remove("active"));
+      tab.classList.add("active");
+      contents[index].classList.add("active");
+    });
+  });
+</script>
+
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-            <script src="index.js"></script>
+        <script src="index.js"></script>
     </body>
 </html>

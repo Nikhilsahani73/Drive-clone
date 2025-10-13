@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -136,13 +137,76 @@
     /* color: black; */
     
 }
+/* add button */
+            .sidebar_btn{
+                position: relative;
+            }
+            .dropdown-manu ul{
+                cursor: pointer;
+                position: absolute;
+                display: none;
+                background-color: #202122;
+                color:white;
+                /* border-radius: 10px; */
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+                list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                /* margin-top: 15px; */
+                font-size: 20px;
+                width: 250px;
+            }
+            .dropdown-manu ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-manu li:hover {
+                background-color: black;
+            }
+            
+            hr{
+                margin: 0px;
+            }
+            .sidebar_btn:hover .dropdown-manu ul{
+            display: block;
+            }
+            .overly {
+                display: none; /* Hidden by default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.6);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .overly.active {
+                display: flex;
+            }
+            
+
+            .overly button{
+                height: 40px;
+                border-radius: 20px;
+                width: 85px;
+                font-size: 20px;
+                margin-left: 10px;
+                background-color: lightgray;
+            }
+            .file-overly button :hover{
+                background-color: blue;
+            }
   </style>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="d-flex justify-content-between align-items-center px-3 py-2">
       <div class="logo d-flex align-items-center me-4">
-        <img src="image.png" alt class="w-75" />
+        <img src="images/image.png" alt class="w-75" />
       </div>
       <div
         class="nev-input border rounded-pill px-3 py-1 w-100"
@@ -158,7 +222,8 @@
         </span>
       </div>
       <div class="nav-icons" style="cursor: pointer">
-        <span class="fs-4 d-flex justify-content-evenly align-items-center" style="width: 150px">
+        <span class="fs-4 d-flex justify-content-evenly align-items-center"
+          style="width: 150px">
           <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
           <i class="fa-regular fa-circle-check"></i>
           <div class="setting-dropdown position: relative">
@@ -188,25 +253,41 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <div class="d-grid m-2" style="width: 230px">
-          <div class="sidebarbtn mb-3 ms-2">
+          <div class=" sidebar_btn mb-3 ms-2">
             <button
-              class="text-light bg-primary d-flex align-items-center rounded-pill"
-               id="addFileBtn" style="height: 40px; width: 110px">
-              <span class="ms-1 fs-5">Add New</span>
+              class=" add_btn text-light bg-primary d-flex align-items-center rounded-pill"
+                style="height: 40px; width: 110px; z-index: 20px;">
+                  <span class="ms-2 fs-5">
+                    Add New</span>
+
             </button>
-          </div>
-          <div class="overly" id="popup">
-            <div class="overly-content bg-light w-25 text-dark p-3 rounded-0">
-              <h4>Add File</h4>
-              <span>
-                <input type="text"placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
-              </span>
-              <div >
-                <button id="cancelBtn" >Cencel</button>
-                <button id="cancelBtn">Create</button>
-              </div>
+            <div class="dropdown-manu">
+              <ul>
+                <li id="addfile"><i class="fa-regular fa-file"></i> New File</li>
+                  <hr>
+                <li id="uploadBtn"><i class="fa-regular fa-file"></i> File Upload</li>
+                  <input type="file" id="fileInput" style="display: none" />
+
+                <li id="uploadFolderBtn"><i class="fa-regular fa-folder"></i>Folder Upload</li>
+                  <input type="file" id="folderInput" webkitdirectory directory style="display: none" />
+              </ul>
+
             </div>
-          </div>
+                        <!-- add new popup -->
+              <div class="overly" id="popup">
+                <div class="overly-content bg-light w-25 text-dark p-3 " style="border-radius: 20px;">
+                  <h4>Add File</h4>
+                    <span>
+                      <input type="text" id="fileName" placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
+                    </span>
+                      <div class="file-overly d-flex justify-content-end" >
+                          <button id="cancelBtn" >Cencel</button>
+                          <button id="createBtn">Create</button>
+                      </div>
+                </div>
+              </div>
+                        
+            </div>
 
           <!-- Sidebar Options -->
           <div class="sidebar-content mt-3 mx-2 w-100">
@@ -416,62 +497,178 @@
       <!-- Right Sidebar -->
       <div class="right-sidebar"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-      const addFileBtn = document.getElementById('addFileBtn');
-  const popup = document.getElementById('popup');
-  const cancelBtn = document.getElementById('cancelBtn');
+<script>
+const addBtn = document.getElementById('addfile');
+const popupOverlay = document.getElementById('popup');
+const cancelBtn = document.getElementById('cancelBtn');
+const createBtn = document.getElementById('createBtn');
+const fileNameInput = document.getElementById('fileName');
+const fileTableBody = document.querySelector('.table-body-drive');
 
-  addFileBtn.addEventListener('click', () => {
-    popup.classList.add('active');
-  });
+// Open popup
+addBtn.addEventListener('click', () => {
+  popupOverlay.style.display = 'flex';
+  fileNameInput.value = '';
+  fileNameInput.focus();
+});
 
-  cancelBtn.addEventListener('click', () => {
-    popup.classList.remove('active');
-  });
+// Cancel popup
+cancelBtn.addEventListener('click', () => {
+  popupOverlay.style.display = 'none';
+});
 
-  // Optional: close popup when clicking outside of content
-  popup.addEventListener('click', (e) => {
-    if (e.target === popup) {
-      popup.classList.remove('active');
-    }
-  });
-    // Dark/Light Mode Toggle
-    const mode = document.querySelector("#mode");
-    let typeMode = "light";
-    mode.addEventListener("click", () => {
-      if (typeMode === "light") {
-        typeMode = "dark";
-        document.body.classList.add("dark");
-        document.body.classList.remove("light");
-      } else {
-        typeMode = "light";
-        document.body.classList.add("light");
-        document.body.classList.remove("dark");
-      }
+// Activate Drive Tab
+function activateDriveTab() {
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".content");
+  tabs.forEach(t => t.classList.remove("active"));
+  contents.forEach(c => c.classList.remove("active"));
+
+  // Activate Drive
+  const driveTab = document.querySelector('.tab[data-target="drive"]');
+  driveTab.classList.add("active");
+  document.getElementById("drive").classList.add("active");
+}
+
+// Create file
+createBtn.addEventListener('click', () => {
+  const fileName = fileNameInput.value.trim();
+  if (fileName === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please enter a file name!',
     });
+    return;
+  }
 
-    // Tabs Functionality
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".content");
+  // Add new file row to Drive
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td><i class="fa-solid fa-file me-2"></i>${fileName}</td>
+    <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+    <td>${new Date().toLocaleDateString()}</td>
+    <td>-</td>
+    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+  `;
+  fileTableBody.appendChild(newRow);
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        // Remove active state from all tabs and contents
-        tabs.forEach((t) => t.classList.remove("active"));
-        contents.forEach((c) => c.classList.remove("active"));
+  popupOverlay.style.display = 'none';
 
-        // Add active to clicked tab
-        tab.classList.add("active");
+  Swal.fire({
+    icon: 'success',
+    title: 'File Created',
+    text: `${fileName} has been added to your Drive`,
+    timer: 2000,
+    showConfirmButton: false
+  });
 
-        // Show matching content
-        const target = tab.getAttribute("data-target");
-        document.getElementById(target).classList.add("active");
-      });
-    });
-    console.table(filesData);
+  activateDriveTab();
+});
 
-  </script>
+// Upload File
+const uploadBtn = document.getElementById('uploadBtn');
+const fileInput = document.getElementById('fileInput');
+
+uploadBtn.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td><i class="fa-regular fa-file me-2"></i>${file.name}</td>
+    <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+    <td>${new Date().toLocaleDateString()}</td>
+    <td>${(file.size / 1024).toFixed(2)} KB</td>
+    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+  `;
+  fileTableBody.appendChild(newRow);
+
+  Swal.fire({
+    icon: 'success',
+    title: 'File Uploaded',
+    text: `${file.name} uploaded to Drive`,
+    timer: 2000,
+    showConfirmButton: false
+  });
+
+  activateDriveTab();
+});
+
+// Upload Folder
+const uploadFolderBtn = document.getElementById('uploadFolderBtn');
+const folderInput = document.getElementById('folderInput');
+
+uploadFolderBtn.addEventListener('click', () => folderInput.click());
+
+folderInput.addEventListener('change', (e) => {
+  const files = e.target.files;
+  if (!files.length) return;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td><i class="fa-regular fa-file me-2"></i>${file.name}</td>
+      <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+      <td>${new Date().toLocaleDateString()}</td>
+      <td>${(file.size / 1024).toFixed(2)} KB</td>
+      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    `;
+    fileTableBody.appendChild(newRow);
+  }
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Folder Uploaded',
+    text: `Folder uploaded to Drive`,
+    timer: 2000,
+    showConfirmButton: false
+  });
+
+  activateDriveTab();
+});
+// Optional: close popup when clicking outside of content
+    popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('active');
+                }
+            });
+            const mode= document.querySelector("#mode");
+            let typeMode ="light";
+            mode.addEventListener("click",()=>{
+                if(typeMode==="light"){
+                   typeMode ="dark";
+                   document.querySelector("body").classList.add("dark")
+                   document.querySelector("body").classList.remove("light")
+                }else{
+                    typeMode ="light";
+                    document.querySelector("body").classList.add("light")
+                    document.querySelector("body").classList.remove("dark")
+                }
+                console.log(typeMode)
+            })
+
+// Tabs functionality
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".content");
+
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    tabs.forEach((t) => t.classList.remove("active"));
+    contents.forEach((c) => c.classList.remove("active"));
+
+    tab.classList.add("active");
+    const target = tab.getAttribute("data-target");
+    document.getElementById(target).classList.add("active");
+  });
+});
+</script>
+
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

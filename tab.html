@@ -3,183 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Drive Clone</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #000;
-      color: white;
-    }
-
-    .container-fluid {
-      display: grid;
-      grid-template-columns: 300px auto 50px;
-      height: 92vh;
-    }
-
-    .sidebar-option:hover {
-      background-color: lightgray;
-      cursor: pointer;
-      color: blue;
-    }
-
-    .dark {
-      background-color: black;
-      color: white;
-    }
-
-    .light {
-      background-color: white;
-      color: #000;
-    }
-
-    .main-cantaint {
-      background-color: #121314;
-      border-radius: 20px;
-      padding: 20px;
-    }
-
-    .content-section {
-      display: none;
-    }
-
-    .content-section.active {
-      display: block;
-    }
-
-    .sidebar .active-tab {
-      background-color: blue;
-      color: white;
-      border-radius: 20px;
-    }
-  </style>
+  <title>Document</title>
+  <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+            rel="stylesheet" />
 </head>
 <body>
+  <style>
+.table-cell {
+  position: relative;
+  display: inline-block;
+}
 
-  <!-- Navbar -->
-  <nav class="d-flex justify-content-between align-items-center px-3 py-2">
-    <div class="logo d-flex align-items-center me-4">
-      <img src="image.png" alt="" class="w-75">
-    </div>
-    <div class="nev-input border rounded-pill px-3 py-1 w-100"
-         style="max-width: 700px; background-color: lightgrey; cursor: pointer;">
-      <span class="d-flex align-items-center fs-5">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Search"
-               class="border-0 bg-transparent flex-grow-1 px-3"
-               style="outline: none;">
-        <i class="fa-solid fa-sliders"></i>
-      </span>
-    </div>
-    <div class="nav-icons" style="cursor: pointer;">
-      <span class="fs-4 d-flex justify-content-evenly" style="width: 150px;">
-        <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
-        <i class="fa-regular fa-circle-check"></i>
-        <i class="fa-solid fa-gear"></i>
-        <i class="fa-regular fa-circle-user"></i>
-      </span>
-    </div>
-  </nav>
+/* Hide dropdown by default */
+.dropdown-option {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left:  0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 200px;
+  z-index: 100;
+}
 
-  <!-- Body -->
-  <div class="container-fluid">
+/* Show dropdown when hovering on the icon or dropdown itself */
+.table-cell:hover .dropdown-option {
+  display: block;
+}
 
-    <!-- Sidebar -->
-    <div class="sidebar p-3">
-      <div class="list-group">
-        <div class="sidebar-option tab active-tab" data-target="home">
-          <span><i class="fa-solid fa-house me-2"></i>Home</span>
-        </div>
-        <div class="sidebar-option tab" data-target="drive">
-          <span><i class="fa-solid fa-hard-drive me-2"></i>My Drive</span>
-        </div>
-        <div class="sidebar-option tab" data-target="shared">
-          <span><i class="fa-solid fa-users me-2"></i>Shared with me</span>
-        </div>
-        <div class="sidebar-option tab" data-target="recent">
-          <span><i class="fa-regular fa-clock me-2"></i>Recent</span>
-        </div>
-        <div class="sidebar-option tab" data-target="starred">
-          <span><i class="fa-regular fa-star me-2"></i>Starred</span>
-        </div>
-        <div class="sidebar-option tab" data-target="bin">
-          <span><i class="fa-solid fa-trash me-2"></i>Bin</span>
-        </div>
+
+
+
+
+
+</style>
+
+<table>
+  <tr>
+    <td class="table-cell">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="float: right;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="float: right;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="float: right;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
       </div>
-    </div>
+    </td>
+  </tr>
+</table>
 
-    <!-- Main content area -->
-    <div class="main-cantaint">
-      <div class="content-section active" id="home">
-        <h1>🏠 Home</h1>
-        <p>Welcome to your Google Drive clone home!</p>
-      </div>
-      <div class="content-section" id="drive">
-        <h1>💾 My Drive</h1>
-        <p>Here you can see your uploaded files and folders.</p>
-      </div>
-      <div class="content-section" id="shared">
-        <h1>👥 Shared with Me</h1>
-        <p>Files and folders shared with you will appear here.</p>
-      </div>
-      <div class="content-section" id="recent">
-        <h1>🕓 Recent</h1>
-        <p>Recently accessed files are shown here.</p>
-      </div>
-      <div class="content-section" id="starred">
-        <h1>⭐ Starred</h1>
-        <p>Your starred (favorite) files are shown here.</p>
-      </div>
-      <div class="content-section" id="bin">
-        <h1>🗑️ Bin</h1>
-        <p>Deleted items will be stored here temporarily.</p>
-      </div>
-    </div>
-
-    <!-- Right Sidebar (optional) -->
-    <div class="right-sidebar"></div>
-
-  </div>
-
-  <!-- Scripts -->
-  <script>
-    // Dark/Light Mode
-    const mode = document.querySelector("#mode");
-    let typeMode = "light";
-    mode.addEventListener("click", () => {
-      if (typeMode === "light") {
-        typeMode = "dark";
-        document.body.classList.add("dark");
-        document.body.classList.remove("light");
-      } else {
-        typeMode = "light";
-        document.body.classList.add("light");
-        document.body.classList.remove("dark");
-      }
-    });
-
-    // Tabs functionality
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".content-section");
-
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove("active-tab"));
-        // Add active class to clicked tab
-        tab.classList.add("active-tab");
-
-        // Hide all content sections
-        contents.forEach(content => content.classList.remove("active"));
-
-        // Show the target section
-        const targetId = tab.getAttribute("data-target");
-        document.getElementById(targetId).classList.add("active");
-      });
-    });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
