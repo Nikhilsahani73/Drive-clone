@@ -200,6 +200,44 @@
             .file-overly button :hover{
                 background-color: blue;
             }
+            .dropdown-option {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  /* border-radius: 6px; */
+  z-index: 100;
+  background-color: #202122;
+  right: 70px;
+  width: 270px;
+  
+}
+.dropdown-option ul{
+  list-style-type: none;
+  list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                right:10px;
+                top:30px;
+}
+.dropdown-option ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-option li:hover {
+                background-color: black;
+            }
+
+.dropdown-option.show {
+  display: block;
+}
+
+.option {
+  cursor: pointer;
+}
+
   </style>
   </head>
   <body>
@@ -614,10 +652,27 @@ folderInput.addEventListener('change', (e) => {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
       <td><i class="fa-regular fa-file me-2"></i>${file.name}</td>
-      <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+      <td><i class="fa-regular fa-circle-user me-1"></i> me </td>
       <td>${new Date().toLocaleDateString()}</td>
       <td>${(file.size / 1024).toFixed(2)} KB</td>
-      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+      <td class="dropdown-dev">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
+      </div>
+    </td>
     `;
     fileTableBody.appendChild(newRow);
   }
@@ -667,7 +722,38 @@ tabs.forEach((tab) => {
     document.getElementById(target).classList.add("active");
   });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const optionIcons = document.querySelectorAll('.option');
+
+  optionIcons.forEach(icon => {
+    const dropdown = icon.nextElementSibling;
+
+    // Toggle dropdown visibility
+    icon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling up
+      closeAllDropdowns(); // Close others
+      dropdown.classList.toggle('show');
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', () => {
+      dropdown.classList.remove('show');
+    });
+
+    // Prevent dropdown click from closing itself
+    dropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Helper to close all dropdowns
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-option').forEach(d => d.classList.remove('show'));
+  }
+});
+
 </script>
+
 
 
     <script

@@ -189,14 +189,18 @@
                 position: relative;
                 /* background-color: blue; */
             }
-            .dropdown-option ul{
+            .dropdown-option{
                 cursor: pointer;
                 position: absolute;
                 display: none;
                 background-color: #202122;
                 color:white;
+                right:10px;
+                top:30px;
                 /* border-radius: 10px; */
                 box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+            }
+            .dropdown-option ul{
                 list-style-type: none;
                 text-align: left;
                 padding:0px ;
@@ -218,8 +222,11 @@
             hr{
                 margin: 0px;
             }
-            .dropdown-dev:hover .dropdown-option ul{
-            display: block;
+            .dropdown-option.show {
+                 display: block;
+            }
+            .option {
+                cursor: pointer;
             }
         </style>
     </head>
@@ -615,14 +622,31 @@
             }
 
             // --- Helper: Add file row ---
-            function addFileToDrive(name, owner = "You", size = "-", date = new Date().toLocaleDateString()) {
+            function addFileToDrive(name, owner = "me", size = "-", date = new Date().toLocaleDateString()) {
                 const row = document.createElement("tr");
                     row.innerHTML = `
                         <td><i class="fa-solid fa-file"></i> ${name}</td>
                         <td><i class="fa-regular fa-circle-user"></i> ${owner}</td>
                         <td>${date}</td>
                         <td>${size}</td>
-                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                        <td class="dropdown-dev">
+                            <i class="fa-solid fa-ellipsis-vertical option"></i>
+                            <div class="dropdown-option">
+                                <ul>
+                                    <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                                        style="text-align: end; width: 115px;"></i></li>
+                                    <hr>
+                                    <li><i class="fa-solid fa-download"></i> Download</li>
+                                    <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+                                    <li><i class="fa-solid fa-copy"></i> Copy</li>
+                                    <hr>
+                                    <li><i class="fa-solid fa-star"></i> Starred</li>
+                                    <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+                                    <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+                                    <li><i class="fa-solid fa-trash"></i> Bin</li>
+                                </ul>
+                            </div>
+                        </td>
                     `;
                 fileTableBody.appendChild(row);
             }
@@ -735,6 +759,35 @@
       contents[index].classList.add("active");
     });
   });
+  document.addEventListener('DOMContentLoaded', () => {
+  const optionIcons = document.querySelectorAll('.option');
+
+  optionIcons.forEach(icon => {
+    const dropdown = icon.nextElementSibling;
+
+    // Toggle dropdown visibility
+    icon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling up
+      closeAllDropdowns(); // Close others
+      dropdown.classList.toggle('show');
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', () => {
+      dropdown.classList.remove('show');
+    });
+
+    // Prevent dropdown click from closing itself
+    dropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Helper to close all dropdowns
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-option').forEach(d => d.classList.remove('show'));
+  }
+});
 </script>
 
 

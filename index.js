@@ -53,7 +53,7 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
     
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
@@ -85,7 +85,7 @@ filesData.forEach((file) => {
     <td>${file.reason}</td>
     <td>${file.size}</td>
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
@@ -115,7 +115,7 @@ filesData.forEach((file) => {
     <td>${file.reason}</td>
     
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
@@ -147,7 +147,7 @@ filesData.forEach((file) => {
     <td>${file.size}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
@@ -178,7 +178,7 @@ filesData.forEach((file) => {
     <td>${file.size}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
@@ -208,7 +208,7 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
     <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
           <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"

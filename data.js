@@ -51,7 +51,24 @@ filesData.forEach((file) => {
     <td>${file.reason}</td>
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
+
   `;
   tableBodyHome.appendChild(row);
 });
@@ -65,7 +82,23 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td>${file.reason}</td>
     <td>${file.size}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
   `;
   tableBodyDrive.appendChild(row);
 });
@@ -78,7 +111,23 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td>${file.reason}</td>
     
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
   `;
   tableBodyShared.appendChild(row);
 });
@@ -93,7 +142,23 @@ filesData.forEach((file) => {
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td>${file.size}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
   `;
   tableBodyRecent.appendChild(row);
 });
@@ -107,7 +172,23 @@ filesData.forEach((file) => {
     <td>${file.reason}</td>
     <td>${file.size}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
   `;
   tableBodyStarred.appendChild(row);
 });
@@ -120,7 +201,23 @@ filesData.forEach((file) => {
     <td>${file.reason}</td>
     <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
     <td><i class="fa-regular fa-hard-drive"></i> ${file.location}</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+  <i class="fa-solid fa-ellipsis-vertical option"></i>
+  <div class="dropdown-option">
+    <ul>
+      <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 120px;"></i></li>
+      <hr>
+      <li><i class="fa-solid fa-download"></i> Download</li>
+      <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+      <li><i class="fa-solid fa-copy"></i> Copy</li>
+      <hr>
+      <li><i class="fa-solid fa-star"></i> Starred</li>
+      <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 145px;"></i></li>
+      <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
+      <li><i class="fa-solid fa-trash"></i> Bin</li>
+    </ul>
+  </div>
+</td>
   `;
   tableBodyBin.appendChild(row);
 });
