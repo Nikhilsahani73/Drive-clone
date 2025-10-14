@@ -37,6 +37,42 @@ const filesData = [
     size: "1.5GB",
     modified: "Shared 05/10/25",
     location: "My Drive"
+  },
+  {
+    name: "report",
+    type: "file-word",
+    owner: "me",
+    reason: "july 07/10/25",
+    size: "1.5GB",
+    modified: "Shared 05/10/25",
+    location: "My Drive"
+  },
+  {
+    name: "report",
+    type: "file-word",
+    owner: "me",
+    reason: "july 07/10/25",
+    size: "1.5GB",
+    modified: "Shared 05/10/25",
+    location: "My Drive"
+  },
+  {
+    name: "report",
+    type: "file-word",
+    owner: "me",
+    reason: "july 07/10/25",
+    size: "1.5GB",
+    modified: "Shared 05/10/25",
+    location: "My Drive"
+  },
+  {
+    name: "report",
+    type: "file-word",
+    owner: "me",
+    reason: "july 07/10/25",
+    size: "1.5GB",
+    modified: "Shared 05/10/25",
+    location: "My Drive"
   }
 ];
 

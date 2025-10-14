@@ -3,22 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!-- Font Awesome CDN -->
-  <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  rel="stylesheet" />
+  <title>Drive Style Image Viewer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    button {
+      background: #0078ff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    tr:hover {
+      background: #f0f8ff;
+      cursor: pointer;
+    }
+
+    /* Drive-style full-screen modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .modal-header .close-btn {
+      cursor: pointer;
+      font-size: 24px;
+      color: #ccc;
+    }
+
+    .modal-header .close-btn:hover {
+      color: #fff;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
-  <!-- Upload File Button -->
-<button id="uploadBtn">
-  <i class="fa-solid fa-upload"></i> Upload File
-</button>
 
-<!-- Hidden file input -->
+<!-- Upload -->
+<button id="uploadBtn"><i class="fa-solid fa-upload"></i> Upload File</button>
 <input type="file" id="fileInput" style="display:none" />
 
-<!-- Example Drive Table -->
+<!-- File Table -->
 <table class="drive-table">
   <thead>
     <tr>
@@ -32,54 +106,28 @@
   <tbody class="table-body-drive"></tbody>
 </table>
 
+<!-- Drive-style Image Viewer -->
+<div id="fileModal" class="modal">
+  <div class="modal-header">
+    <span id="fileNameHeader">File name</span>
+    <i class="fa-solid fa-xmark close-btn" id="closeModal"></i>
+  </div>
+  <img id="modalImage" src="" alt="Preview" />
+</div>
+
 <script>
-  // 🔹 Your example JSON data
-  let filesData = [
-    {
-      name: "Report.pdf",
-      type: getFileIcon("Report.pdf"),
-      owner: "me",
-      reason: "july 02/10/25",
-      size: "1GB",
-      modified: "You opened 02/10/25",
-      location: "My Drive"
-    },
-    {
-      name: "Design.png",
-      type: getFileIcon("Design.png"),
-      owner: "me",
-      reason: "july 03/10/25",
-      size: "132KB",
-      modified: "You opened 02/10/25",
-      location: "My Drive"
-    },
-    {
-      name: "Video.mp4",
-      type: getFileIcon("Video.mp4"),
-      owner: "John",
-      reason: "july 05/10/25",
-      size: "2.5GB",
-      modified: "Modified 03/10/25",
-      location: "Shared with me"
-    },
-    {
-      name: "Document.docx",
-      type: getFileIcon("Document.docx"),
-      owner: "me",
-      reason: "july 07/10/25",
-      size: "1.5GB",
-      modified: "Shared 05/10/25",
-      location: "My Drive"
-    }
-  ];
+  let filesData = [];
 
   const uploadBtn = document.getElementById("uploadBtn");
   const fileInput = document.getElementById("fileInput");
   const tableBodyDrive = document.querySelector(".table-body-drive");
+  const modal = document.getElementById("fileModal");
+  const closeModal = document.getElementById("closeModal");
+  const modalImage = document.getElementById("modalImage");
+  const fileNameHeader = document.getElementById("fileNameHeader");
 
-  // 🔹 Populate Drive Table (initial)
   function renderDriveTable() {
-    tableBodyDrive.innerHTML = ""; // Clear existing rows
+    tableBodyDrive.innerHTML = "";
     filesData.forEach((file) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -89,11 +137,58 @@
         <td>${file.size}</td>
         <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
       `;
+      row.addEventListener("click", () => openDriveViewer(file));
       tableBodyDrive.appendChild(row);
     });
   }
 
-  // 🔹 File icon selector helper
+  function openDriveViewer(file) {
+    if (file.preview && file.type === "file-image") {
+      modalImage.src = file.preview;
+      fileNameHeader.textContent = file.name;
+      modal.style.display = "flex";
+    } else {
+      alert("Preview only available for image files.");
+    }
+  }
+
+  closeModal.addEventListener("click", () => modal.style.display = "none");
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
+
+  uploadBtn.addEventListener("click", () => fileInput.click());
+
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const newFile = {
+      name: file.name,
+      type: getFileIcon(file.name),
+      owner: "me",
+      reason: new Date().toLocaleDateString("en-GB"),
+      size: formatFileSize(file.size),
+      modified: "Just now",
+      preview: null
+    };
+
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        newFile.preview = event.target.result;
+        filesData.push(newFile);
+        renderDriveTable();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      filesData.push(newFile);
+      renderDriveTable();
+    }
+
+    fileInput.value = "";
+  });
+
   function getFileIcon(filename) {
     const ext = filename.split('.').pop().toLowerCase();
     if (["jpg", "jpeg", "png", "gif"].includes(ext)) return "file-image";
@@ -107,49 +202,13 @@
     return "file";
   }
 
-  // 🔹 On Upload Button Click → Open file manager
-  uploadBtn.addEventListener("click", () => fileInput.click());
-
-  // 🔹 When file selected → Add to Drive tab and table
-  fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Create new file data
-    const newFile = {
-      name: file.name,
-      type: getFileIcon(file.name),
-      owner: "me",
-      reason: new Date().toLocaleDateString("en-GB"),
-      size: formatFileSize(file.size),
-      modified: "Just now",
-      location: "My Drive"
-    };
-
-    // Add to filesData array
-    filesData.push(newFile);
-
-    // Re-render Drive table
-    renderDriveTable();
-
-    // Reset input
-    fileInput.value = "";
-  });
-
-  // 🔹 Helper to format file size
   function formatFileSize(bytes) {
     if (bytes < 1024) return bytes + " B";
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
     if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + " MB";
     return (bytes / 1073741824).toFixed(1) + " GB";
   }
-
-  // 🔹 Initial render
-  renderDriveTable();
 </script>
-
-<!-- Font Awesome (for icons) -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

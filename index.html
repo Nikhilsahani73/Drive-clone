@@ -180,6 +180,11 @@
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
+            .table-body :hover{
+                /* background-color: lavender; */
+                /* padding: 0px 5px; */
+                /* transform: 2000; */
+            }
             
             .table-body td i{
                 font-size: 20px;
@@ -205,11 +210,7 @@
                 text-align: left;
                 padding:0px ;
                 margin: 0px;
-                right:10px;
-                top:30px;
-                /* margin-top: 15px; */
-                font-size: 20px;
-                width: 270px;
+                width: 240px;
             }
             .dropdown-option ul li{
                 padding: 5px 10px; 
@@ -227,6 +228,42 @@
             }
             .option {
                 cursor: pointer;
+            }
+
+            /* open with dropdown */
+            .open{
+                position: relative;
+                /* background-color: blue; */
+            }
+            .dropdown-sub-option ul{
+                cursor: pointer;
+                position: absolute;
+                display: none;
+                background-color: #202122;
+                color:white;
+                right:240px;
+                top:0px;
+                /* border-radius: 10px; */
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);            
+                list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                width: 240px;
+            }
+            .dropdown-sub-option ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-sub-option li:hover {
+                background-color: black;
+            }
+            
+            hr{
+                margin: 0px;
+            }
+            .open:hover .dropdown-sub-option ul{
+                display: block;
             }
         </style>
     </head>
@@ -633,8 +670,18 @@
                             <i class="fa-solid fa-ellipsis-vertical option"></i>
                             <div class="dropdown-option">
                                 <ul>
-                                    <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                                        style="text-align: end; width: 115px;"></i></li>
+                                    <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                                            style="text-align: end; width: 115px;"></i>
+                                        <div class="dropdown-sub-option">
+                                            <ul>
+                                                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                                                <hr>
+                                                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                                                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+                                            </ul>
+                                        </div>
+                                    </li>
                                     <hr>
                                     <li><i class="fa-solid fa-download"></i> Download</li>
                                     <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -691,7 +738,7 @@
   fileInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
-      addFileToDrive(file.name, "You", `${(file.size / 1024).toFixed(1)} KB`);
+      addFileToDrive(file.name, "me", `${(file.size / 1024).toFixed(1)} KB`);
 
       Swal.fire({
         title: "File Uploaded!",
@@ -713,7 +760,7 @@
     if (files.length > 0) {
       let count = 0;
       for (const file of files) {
-        addFileToDrive(file.webkitRelativePath, "You", `${(file.size / 1024).toFixed(1)} KB`);
+        addFileToDrive(file.webkitRelativePath, "me", `${(file.size / 1024).toFixed(1)} KB`);
         count++;
       }
 

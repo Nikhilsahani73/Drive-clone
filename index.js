@@ -56,16 +56,26 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
           <li><i class="fa-solid fa-copy"></i> Copy</li>
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
-          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed </li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information </li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>
@@ -88,8 +98,18 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -97,7 +117,7 @@ filesData.forEach((file) => {
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
           <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>
@@ -118,8 +138,18 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -127,7 +157,7 @@ filesData.forEach((file) => {
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
           <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>
@@ -150,8 +180,18 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -159,7 +199,7 @@ filesData.forEach((file) => {
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
           <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>
@@ -181,8 +221,18 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -190,7 +240,7 @@ filesData.forEach((file) => {
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
           <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>
@@ -211,8 +261,18 @@ filesData.forEach((file) => {
       <i class="fa-solid fa-ellipsis-vertical option"></i>
       <div class="dropdown-option">
         <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
+          <li class="open" ><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i>
+            <div class="dropdown-sub-option">
+              <ul>
+                <li><i class="fa-regular fa-eye"></i> Preview </li>
+                <hr>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in new tab</li>
+                <li><i class="fa-regular fa-file-lines"></i> Google Docs</li>
+                
+              </ul>
+            </div>
+          </li>
           <hr>
           <li><i class="fa-solid fa-download"></i> Download</li>
           <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
@@ -220,7 +280,7 @@ filesData.forEach((file) => {
           <hr>
           <li><i class="fa-solid fa-star"></i> Starred</li>
           <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 80px;"></i></li>
           <li><i class="fa-solid fa-trash"></i> Bin</li>
         </ul>
       </div>

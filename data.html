@@ -24,6 +24,7 @@
       grid-template-columns: 300px auto 50px;
       height: 92vh;
     }
+    
 
     .sidebar-option:hover {
       background-color: lightgray;
@@ -586,10 +587,27 @@ createBtn.addEventListener('click', () => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
     <td><i class="fa-solid fa-file me-2"></i>${fileName}</td>
-    <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+    <td><i class="fa-regular fa-circle-user me-1"></i>me</td>
     <td>${new Date().toLocaleDateString()}</td>
     <td>-</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
+      </div>
+    </td>
   `;
   fileTableBody.appendChild(newRow);
 
@@ -622,7 +640,24 @@ fileInput.addEventListener('change', (e) => {
     <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
     <td>${new Date().toLocaleDateString()}</td>
     <td>${(file.size / 1024).toFixed(2)} KB</td>
-    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    <td class="dropdown-dev">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
+      </div>
+    </td>
   `;
   fileTableBody.appendChild(newRow);
 
