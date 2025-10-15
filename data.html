@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,14 +15,23 @@
     body {
       background-color: #000;
       color: white;
+      overflow-y: auto;       /* Enable vertical scroll if needed */
+  overflow-x: hidden;
       
 
     }
     .container-fluid {
       display: grid;
       grid-template-columns: 300px auto 50px;
-      height: 92vh;
+      height: 85vh;
     }
+    .main-content {
+  background-color: #121314;
+  border-radius: 20px;
+  /* height: 90vh;           Fixed height */
+  overflow-y: auto;       /* Enable vertical scroll if needed */
+  overflow-x: hidden;     /* Hide horizontal scroll */
+}
     
 
     .sidebar-option:hover {
@@ -238,6 +246,135 @@
 .option {
   cursor: pointer;
 }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  color: #5f6368;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.file-details p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #202124;
+}
+
+.file-details p span {
+  color: #5f6368;
+}
+
+.file-actions {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.file-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1a73e8;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.file-actions button:hover {
+  background-color: #1557b0;
+}
+
+.table-body tr {
+  cursor: pointer;
+}
+
+.table-body tr:hover {
+  background-color: #f1f3f4;
+  color: #000;
+}
+.modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .modal-header .close-btn {
+      cursor: pointer;
+      font-size: 24px;
+      color: #ccc;
+    }
+
+    .modal-header .close-btn:hover {
+      color: #fff;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      object-fit: contain;
+    }
 
   </style>
   </head>
@@ -427,6 +564,13 @@
               <!-- json data -->
             </tbody>
           </table>
+          <div id="fileModal" class="modal">
+            <div class="modal-header">
+              <span id="fileNameHeader">File name</span>
+              <i class="fa-solid fa-xmark close-btn" id="closeModal"></i>
+            </div>
+            <img id="modalImage" src="" alt="Preview" />
+          </div>
         </div>
 
         <!-- Shared -->
@@ -531,6 +675,8 @@
             </table>
           </div>
         </div>
+
+
       </div>
 
       <!-- Right Sidebar -->
@@ -625,12 +771,12 @@ createBtn.addEventListener('click', () => {
 });
 
 // Upload File
-const uploadBtn = document.getElementById('uploadBtn');
-const fileInput = document.getElementById('fileInput');
+const uploadBtn1 = document.getElementById('uploadBtn');
+const fileInput1 = document.getElementById('fileInput');
 
-uploadBtn.addEventListener('click', () => fileInput.click());
+// uploadBtn1.addEventListener('click', () => fileInput1.click());
 
-fileInput.addEventListener('change', (e) => {
+fileInput1.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
@@ -682,46 +828,95 @@ folderInput.addEventListener('change', (e) => {
   const files = e.target.files;
   if (!files.length) return;
 
+  let addedCount = 0;
+  let toAdd = files.length;
+
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-      <td><i class="fa-regular fa-file me-2"></i>${file.name}</td>
-      <td><i class="fa-regular fa-circle-user me-1"></i> me </td>
-      <td>${new Date().toLocaleDateString()}</td>
-      <td>${(file.size / 1024).toFixed(2)} KB</td>
-      <td class="dropdown-dev">
-      <i class="fa-solid fa-ellipsis-vertical option"></i>
-      <div class="dropdown-option">
-        <ul>
-          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
-                style="text-align: end; width: 115px;"></i></li>
-          <hr>
-          <li><i class="fa-solid fa-download"></i> Download</li>
-          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
-          <li><i class="fa-solid fa-copy"></i> Copy</li>
-          <hr>
-          <li><i class="fa-solid fa-star"></i> Starred</li>
-          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
-          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
-          <li><i class="fa-solid fa-trash"></i> Bin</li>
-        </ul>
-      </div>
-    </td>
-    `;
-    fileTableBody.appendChild(newRow);
+    const newFile = {
+      name: file.name,
+      type: getFileIcon(file.name),
+      owner: "You",
+      reason: new Date().toLocaleDateString("en-GB"),
+      size: formatFileSize(file.size),
+      preview: null,
+    };
+
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        newFile.preview = event.target.result;
+        filesData.push(newFile);
+        addedCount++;
+        if (addedCount === toAdd) {
+          renderDriveTable();
+          Swal.fire({
+            icon: 'success',
+            title: 'Folder Uploaded',
+            text: `Folder uploaded to Drive`,
+            timer: 2000,
+            showConfirmButton: false
+          });
+          activateDriveTab();
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      filesData.push(newFile);
+      addedCount++;
+      if (addedCount === toAdd) {
+        renderDriveTable();
+        Swal.fire({
+          icon: 'success',
+          title: 'Folder Uploaded',
+          text: `Folder uploaded to Drive`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+        activateDriveTab();
+      }
+    }
   }
+  folderInput.value = "";
+});
+
+// ===== Add File (from popup) =====
+createBtn.addEventListener('click', () => {
+  const fileName = fileNameInput.value.trim();
+  if (fileName === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please enter a file name!',
+    });
+    return;
+  }
+
+  // Add new file to filesData and render
+  const newFile = {
+    name: fileName,
+    type: getFileIcon(fileName),
+    owner: "You",
+    reason: new Date().toLocaleDateString("en-GB"),
+    size: "-",
+    preview: null,
+  };
+  filesData.push(newFile);
+  renderDriveTable();
+
+  popupOverlay.style.display = 'none';
 
   Swal.fire({
     icon: 'success',
-    title: 'Folder Uploaded',
-    text: `Folder uploaded to Drive`,
+    title: 'File Created',
+    text: `${fileName} has been added to your Drive`,
     timer: 2000,
     showConfirmButton: false
   });
 
   activateDriveTab();
 });
+
 // Optional: close popup when clicking outside of content
     popup.addEventListener('click', (e) => {
             if (e.target === popup) {
@@ -786,6 +981,144 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.dropdown-option').forEach(d => d.classList.remove('show'));
   }
 });
+let filesData = [];
+
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const tableBodyDrive = document.querySelector(".table-body-drive");
+const modal = document.getElementById("fileModal");
+const closeModal = document.getElementById("closeModal");
+const modalImage = document.getElementById("modalImage");
+const fileNameHeader = document.getElementById("fileNameHeader");
+
+// ===== Render Drive Table =====
+function renderDriveTable() {
+  tableBodyDrive.innerHTML = "";
+  filesData.forEach((file, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><i class="fa-solid fa-${file.type} me-2"></i>${file.name}</td>
+      <td><i class="fa-regular fa-circle-user me-1"></i>${file.owner}</td>
+      <td>${file.reason}</td>
+      <td>${file.size}</td>
+      <td class="dropdown-dev">
+        <i class="fa-solid fa-ellipsis-vertical option"></i>
+        <div class="dropdown-option">
+          <ul>
+            <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 115px;"></i></li>
+            <hr>
+            <li><i class="fa-solid fa-download"></i> Download</li>
+            <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+            <li><i class="fa-solid fa-copy"></i> Copy</li>
+            <hr>
+            <li><i class="fa-solid fa-star"></i> Starred</li>
+            <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+            <li><i class="fa-solid fa-circle-info"></i> File Info <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+            <li><i class="fa-solid fa-trash"></i> Bin</li>
+          </ul>
+        </div>
+      </td>
+    `;
+    
+
+    // Open file preview when clicking on the row (except dropdown)
+    row.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("option")) openDriveViewer(file);
+    });
+
+    tableBodyDrive.appendChild(row);
+  });
+}
+
+// ===== Modal File Preview =====
+function openDriveViewer(file) {
+  if (file.preview && file.type === "file-image") {
+    modalImage.src = file.preview;
+    fileNameHeader.textContent = file.name;
+    modal.style.display = "flex";
+  } else {
+    Swal.fire({
+      icon: "info",
+      title: "No Preview",
+      text: "Preview available only for image files.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
+}
+
+closeModal.addEventListener("click", () => (modal.style.display = "none"));
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// ===== Upload File =====
+uploadBtn.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const newFile = {
+    name: file.name,
+    type: getFileIcon(file.name),
+    owner: "You",
+    reason: new Date().toLocaleDateString("en-GB"),
+    size: formatFileSize(file.size),
+    preview: null,
+  };
+
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      newFile.preview = event.target.result;
+      filesData.push(newFile);
+      renderDriveTable();
+      showUploadSuccess(file.name);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    filesData.push(newFile);
+    renderDriveTable();
+    showUploadSuccess(file.name);
+  }
+
+  fileInput.value = "";
+});
+
+// ===== SweetAlert Success =====
+function showUploadSuccess(fileName) {
+  Swal.fire({
+    icon: "success",
+    title: "File Uploaded",
+    text: `${fileName} uploaded to Drive`,
+    timer: 2000,
+    showConfirmButton: false,
+  });
+}
+
+// ===== Helper Functions =====
+function getFileIcon(filename) {
+  const ext = filename.split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "gif"].includes(ext)) return "file-image";
+  if (["pdf"].includes(ext)) return "file-pdf";
+  if (["doc", "docx"].includes(ext)) return "file-word";
+  if (["xls", "xlsx"].includes(ext)) return "file-excel";
+  if (["ppt", "pptx"].includes(ext)) return "file-powerpoint";
+  if (["zip", "rar"].includes(ext)) return "file-archive";
+  if (["mp3", "wav"].includes(ext)) return "file-audio";
+  if (["mp4", "mkv", "mov"].includes(ext)) return "file-video";
+  return "file";
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+  if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + " MB";
+  return (bytes / 1073741824).toFixed(1) + " GB";
+}
+
+</script>
 
 </script>
 

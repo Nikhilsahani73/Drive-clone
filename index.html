@@ -173,18 +173,21 @@
                 color: black;
                 /* background-color: #121314; */
                 border-radius: 20px;
+                /* height: 95vh;           Fixed height */
+                overflow-y: auto;       /* Enable vertical scroll if needed */
+                overflow-x: hidden;     /* Hide horizontal scroll */
             }
+
             .table-head th,
             .table-body td{
                 border-bottom: 1px solid;
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
-            .table-body :hover{
-                /* background-color: lavender; */
-                /* padding: 0px 5px; */
-                /* transform: 2000; */
+            .table-body tr:hover{
+                background-color: lavender;
             }
+            
             
             .table-body td i{
                 font-size: 20px;

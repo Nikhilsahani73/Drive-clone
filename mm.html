@@ -1,44 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drive Style Image Viewer</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
-  <style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Drive Clone</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      rel="stylesheet" />
+
+    <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-
-    button {
-      background: #0078ff;
+      background-color: #000;
       color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
+      overflow-y: auto;       /* Enable vertical scroll if needed */
+  overflow-x: hidden;
+      
+
+    }
+    .container-fluid {
+      display: grid;
+      grid-template-columns: 300px auto 50px;
+      height: 85vh;
+    }
+    .main-content {
+  background-color: #121314;
+  border-radius: 20px;
+  /* height: 90vh;           Fixed height */
+  overflow-y: auto;       /* Enable vertical scroll if needed */
+  overflow-x: hidden;     /* Hide horizontal scroll */
+}
+    
+
+    .sidebar-option:hover {
+      background-color: lightgray;
       cursor: pointer;
+      color: blue;
+      border-radius: 20px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    .dark {
+      background-color: black;
+      color: white;
     }
 
-    th, td {
-      border-bottom: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
+    .light {
+      background-color: white;
+      color: #000;
+    }
+    
+      .dropdown-Setting ul{
+    list-style-type: none;
+    display: none;
+    width: 140px;
+    position: absolute;
+    right: 25px;
+    background-color: #202122;
+    padding: 0px 10px 10px;
+    border-radius: 10px;
+    top: 70px;
+  }
+   .setting-dropdown:hover .dropdown-Setting ul{
+    display: block;
+  }
+    .dropdown-user ul{
+    list-style-type: none;
+    display: none;
+    width: 140px;
+    position: absolute;
+    right: 25px;
+    background-color: #202122;
+    padding: 0;
+    margin: 0;
+    /* border-radius: 10px; */
+    top: 70px;
+  }
+   .user-dropdown:hover .dropdown-user ul{
+    display: block;
+  }
+  .dropdown-user ul li{
+    padding:  0px 10px 10px;
+  }
+  .dropdown-user ul li :hover{
+    margin: 0px 10px ;
+    background-color: blue;
+  
+  }
+
+    .main-content {
+      background-color: #121314;
+      border-radius: 20px;
     }
 
-    tr:hover {
-      background: #f0f8ff;
-      cursor: pointer;
+    .table-head th,
+    .table-body td {
+      border-bottom: 1px solid;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      /* display: flex; */
+      /* justify-content: space-between; */
     }
 
-    /* Drive-style full-screen modal */
-    .modal {
+    .table-body td i {
+      font-size: 20px;
+    }
+
+    /* Tabs styling */
+    .tab.active {
+      background-color: blue;
+      color: white;
+      border-radius: 20px;
+    }
+
+    .content {
+      display: none;
+    }
+    .content.active {
+      display: block;
+    }
+  .overly {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overly.active {
+  display: flex;
+}
+
+.overly-content {
+    /* padding: 20px; */
+    border: 1px solid;
+    /* background: white; */
+    /* width: 400px; */
+    /* height: 200px; */
+    /* color: black; */
+    
+}
+/* add button */
+            .sidebar_btn{
+                position: relative;
+            }
+            .dropdown-manu ul{
+                cursor: pointer;
+                position: absolute;
+                display: none;
+                background-color: #202122;
+                color:white;
+                /* border-radius: 10px; */
+                box-shadow: 0 4px 10px rgba(245, 235, 235, 0.4);
+                list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                /* margin-top: 15px; */
+                font-size: 20px;
+                width: 250px;
+            }
+            .dropdown-manu ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-manu li:hover {
+                background-color: black;
+            }
+            
+            hr{
+                margin: 0px;
+            }
+            .sidebar_btn:hover .dropdown-manu ul{
+            display: block;
+            }
+            .overly {
+                display: none; /* Hidden by default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.6);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .overly.active {
+                display: flex;
+            }
+            
+
+            .overly button{
+                height: 40px;
+                border-radius: 20px;
+                width: 85px;
+                font-size: 20px;
+                margin-left: 10px;
+                background-color: lightgray;
+            }
+            .file-overly button :hover{
+                background-color: blue;
+            }
+            .dropdown-option {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  /* border-radius: 6px; */
+  z-index: 100;
+  background-color: #202122;
+  right: 70px;
+  width: 270px;
+  
+}
+.dropdown-option ul{
+  list-style-type: none;
+  list-style-type: none;
+                text-align: left;
+                padding:0px ;
+                margin: 0px;
+                right:10px;
+                top:30px;
+}
+.dropdown-option ul li{
+                padding: 5px 10px; 
+                margin: 5px 0px
+            }
+            .dropdown-option li:hover {
+                background-color: black;
+            }
+
+.dropdown-option.show {
+  display: block;
+}
+
+.option {
+  cursor: pointer;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  color: #5f6368;
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.file-details p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #202124;
+}
+
+.file-details p span {
+  color: #5f6368;
+}
+
+.file-actions {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.file-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1a73e8;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.file-actions button:hover {
+  background-color: #1557b0;
+}
+
+.table-body tr {
+  cursor: pointer;
+}
+
+.table-body tr:hover {
+  background-color: #f1f3f4;
+  color: #000;
+}
+.modal {
       display: none;
       position: fixed;
       z-index: 50;
@@ -84,131 +375,841 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.1);
       object-fit: contain;
     }
+
   </style>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="d-flex justify-content-between align-items-center px-3 py-2">
+      <div class="logo d-flex align-items-center me-4">
+        <img src="images/image.png" alt class="w-75" />
+      </div>
+      <div
+        class="nev-input border rounded-pill px-3 py-1 w-100"
+        style="max-width: 700px; background-color: lightgrey; cursor: pointer">
+        <span class="d-flex align-items-center fs-5">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            placeholder="Search"
+            class="border-0 bg-transparent flex-grow-1 px-3"
+            style="outline: none" />
+          <i class="fa-solid fa-sliders"></i>
+        </span>
+      </div>
+      <div class="nav-icons" style="cursor: pointer">
+        <span class="fs-4 d-flex justify-content-evenly align-items-center"
+          style="width: 150px">
+          <i class="fa-solid fa-circle-half-stroke" id="mode"></i>
+          <i class="fa-regular fa-circle-check"></i>
+          <div class="setting-dropdown position: relative">
+            <i class="fa-solid fa-gear"></i>
+            <div class="dropdown-Setting">
+              <ul>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+          <div class="user-dropdown position: relative">
+            <i class="user fa-regular fa-circle-user"></i>
+            <div class="dropdown-user ">
+              <ul>
+                <li class=" border-bottom">Sign in</li>
+                <li>Sign out</li>
+              </ul>
+            </div>
+          </div>
+        </span>
+      </div>
+    </nav>
 
-<!-- Upload -->
-<button id="uploadBtn"><i class="fa-solid fa-upload"></i> Upload File</button>
-<input type="file" id="fileInput" style="display:none" />
+    <!-- Sidebar and main -->
 
-<!-- File Table -->
-<table class="drive-table">
-  <thead>
-    <tr>
-      <th>File</th>
-      <th>Owner</th>
-      <th>Reason</th>
-      <th>Size</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody class="table-body-drive"></tbody>
-</table>
+    <div class="container-fluid">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="d-grid m-2" style="width: 230px">
+          <div class=" sidebar_btn mb-3 ms-2">
+            <button
+              class=" add_btn text-light bg-primary d-flex align-items-center rounded-pill"
+                style="height: 40px; width: 110px; z-index: 20px;">
+                  <span class="ms-2 fs-5">
+                    Add New</span>
 
-<!-- Drive-style Image Viewer -->
-<div id="fileModal" class="modal">
-  <div class="modal-header">
-    <span id="fileNameHeader">File name</span>
-    <i class="fa-solid fa-xmark close-btn" id="closeModal"></i>
-  </div>
-  <img id="modalImage" src="" alt="Preview" />
-</div>
+            </button>
+            <div class="dropdown-manu">
+              <ul>
+                <li id="addfile"><i class="fa-regular fa-file"></i> New File</li>
+                  <hr>
+                <li id="uploadBtn"><i class="fa-regular fa-file"></i> File Upload</li>
+                  <input type="file" id="fileInput" style="display: none" />
+
+                <li id="uploadFolderBtn"><i class="fa-regular fa-folder"></i>Folder Upload</li>
+                  <input type="file" id="folderInput" webkitdirectory directory style="display: none" />
+              </ul>
+
+            </div>
+                        <!-- add new popup -->
+              <div class="overly" id="popup">
+                <div class="overly-content bg-light w-25 text-dark p-3 " style="border-radius: 20px;">
+                  <h4>Add File</h4>
+                    <span>
+                      <input type="text" id="fileName" placeholder="Enter file name" class="w-100 my-4 ps-2" style="height: 40px;" >
+                    </span>
+                      <div class="file-overly d-flex justify-content-end" >
+                          <button id="cancelBtn" >Cencel</button>
+                          <button id="createBtn">Create</button>
+                      </div>
+                </div>
+              </div>
+                        
+            </div>
+
+          <!-- Sidebar Options -->
+          <div class="sidebar-content mt-3 mx-2 w-100">
+            <div class="list-group">
+              <div class="sidebar-option tab active d-flex align-items-center"
+                data-target="home">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-house me-2"></i>Home
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="drive">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-hard-drive me-2"></i>My Drive
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="shared">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-users me-2"></i>Shared with me
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="recent">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-regular fa-clock me-2"></i>Recent
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="starred">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-regular fa-star me-2"></i>Starred
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="bin">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  <i class="fa-solid fa-trash me-2"></i>Bin
+                </span>
+              </div>
+              <div class="sidebar-option tab d-flex align-items-center"
+                data-target="Storage">
+                <span class="w-100 fs-5 rounded-pill px-3 py-1 mb-1">
+                  Storage
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="mt-1 ms-2 ps-3">
+            <span class="d-block fs-6 mb-1">7GB of 15GB used</span>
+            <div class="progress" style="height: 15px">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                style="width: 45%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content p-3">
+        <!-- Home -->
+        <div class="content active" id="home">
+          <h3>Home</h3>
+          <table class="w-100 mt-4">
+            <thead class="table-head">
+              <tr>
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <!-- json data -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Drive -->
+        <div class="content" id="drive">
+          <h3>My Drive</h3>
+          <table class="w-100 mt-4">
+            <thead class="table-head">
+              <tr>
+                <th>File Name</th>
+                <th>Owner</th>
+                <th>Date Modified</th>
+                <th>Size</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table-body table-body-drive">
+              <!-- json data -->
+            </tbody>
+          </table>
+          <div id="fileModal" class="modal">
+            <div class="modal-header">
+              <span id="fileNameHeader">File name</span>
+              <i class="fa-solid fa-xmark close-btn" id="closeModal"></i>
+            </div>
+            <img id="modalImage" src="" alt="Preview" />
+          </div>
+        </div>
+
+        <!-- Shared -->
+        <div class="content" id="shared">
+          <h3>Shared with Me</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Shared By</th>
+                <th>Date Shared</th>
+                <!-- <th>Location</th> -->
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Shared ">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent -->
+        <div class="content" id="recent">
+          <h3>Recent</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>File Size</th>
+                <th>Location</th>
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Recent">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Starred -->
+        <div class="content" id="starred">
+          <h3>Starred</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>File Size</th>
+                <th>Location</th>
+                <th></th>
+              </thead>
+              <tbody class="table-body table-body-Starred">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bin -->
+        <div class="content" id="bin">
+          <h3>Bin</h3>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Reason Suggested</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th></th>
+
+              </thead>
+              <tbody class="table-body table-body-Bin">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--Storage  Section -->
+        <div class="content" id="Storage">
+          <div>
+            <h3>Storage</h3>
+          </div>
+          <div class="home-table-data mt-5 ">
+            <table class=" w-100">
+              <thead class="table-head">
+
+                <th>File Name</th>
+                <th>Storage used</th>
+
+              </thead>
+              <tbody class="table-body table-body-Storage">
+                <!-- json data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="right-sidebar"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  let filesData = [];
+const addBtn = document.getElementById('addfile');
+const popupOverlay = document.getElementById('popup');
+const cancelBtn = document.getElementById('cancelBtn');
+const createBtn = document.getElementById('createBtn');
+const fileNameInput = document.getElementById('fileName');
+const fileTableBody = document.querySelector('.table-body-drive');
 
-  const uploadBtn = document.getElementById("uploadBtn");
-  const fileInput = document.getElementById("fileInput");
-  const tableBodyDrive = document.querySelector(".table-body-drive");
-  const modal = document.getElementById("fileModal");
-  const closeModal = document.getElementById("closeModal");
-  const modalImage = document.getElementById("modalImage");
-  const fileNameHeader = document.getElementById("fileNameHeader");
+// Open popup
+addBtn.addEventListener('click', () => {
+  popupOverlay.style.display = 'flex';
+  fileNameInput.value = '';
+  fileNameInput.focus();
+});
 
-  function renderDriveTable() {
-    tableBodyDrive.innerHTML = "";
-    filesData.forEach((file) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><i class="fa-solid fa-${file.type}"></i> ${file.name}</td>
-        <td><i class="fa-regular fa-circle-user"></i> ${file.owner}</td>
-        <td>${file.reason}</td>
-        <td>${file.size}</td>
-        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-      `;
-      row.addEventListener("click", () => openDriveViewer(file));
-      tableBodyDrive.appendChild(row);
+// Cancel popup
+cancelBtn.addEventListener('click', () => {
+  popupOverlay.style.display = 'none';
+});
+
+// Activate Drive Tab
+function activateDriveTab() {
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".content");
+  tabs.forEach(t => t.classList.remove("active"));
+  contents.forEach(c => c.classList.remove("active"));
+
+  // Activate Drive
+  const driveTab = document.querySelector('.tab[data-target="drive"]');
+  driveTab.classList.add("active");
+  document.getElementById("drive").classList.add("active");
+}
+
+// Create file
+createBtn.addEventListener('click', () => {
+  const fileName = fileNameInput.value.trim();
+  if (fileName === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please enter a file name!',
     });
+    return;
   }
 
-  function openDriveViewer(file) {
-    if (file.preview && file.type === "file-image") {
-      modalImage.src = file.preview;
-      fileNameHeader.textContent = file.name;
-      modal.style.display = "flex";
-    } else {
-      alert("Preview only available for image files.");
-    }
-  }
+  // Add new file row to Drive
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td><i class="fa-solid fa-file me-2"></i>${fileName}</td>
+    <td><i class="fa-regular fa-circle-user me-1"></i>me</td>
+    <td>${new Date().toLocaleDateString()}</td>
+    <td>-</td>
+    <td class="dropdown-dev">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
+      </div>
+    </td>
+  `;
+  fileTableBody.appendChild(newRow);
 
-  closeModal.addEventListener("click", () => modal.style.display = "none");
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
+  popupOverlay.style.display = 'none';
+
+  Swal.fire({
+    icon: 'success',
+    title: 'File Created',
+    text: `${fileName} has been added to your Drive`,
+    timer: 2000,
+    showConfirmButton: false
   });
 
-  uploadBtn.addEventListener("click", () => fileInput.click());
+  activateDriveTab();
+});
 
-  fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+// Upload File
+const uploadBtn1 = document.getElementById('uploadBtn');
+const fileInput1 = document.getElementById('fileInput');
 
+// uploadBtn1.addEventListener('click', () => fileInput1.click());
+
+fileInput1.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <td><i class="fa-regular fa-file me-2"></i>${file.name}</td>
+    <td><i class="fa-regular fa-circle-user me-1"></i>You</td>
+    <td>${new Date().toLocaleDateString()}</td>
+    <td>${(file.size / 1024).toFixed(2)} KB</td>
+    <td class="dropdown-dev">
+      <i class="fa-solid fa-ellipsis-vertical option"></i>
+      <div class="dropdown-option">
+        <ul>
+          <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right"
+                style="text-align: end; width: 115px;"></i></li>
+          <hr>
+          <li><i class="fa-solid fa-download"></i> Download</li>
+          <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+          <li><i class="fa-solid fa-copy"></i> Copy</li>
+          <hr>
+          <li><i class="fa-solid fa-star"></i> Starred</li>
+          <li><i class="fa-solid fa-share-nodes"></i> Shareed <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+          <li><i class="fa-solid fa-circle-info"></i> File Information <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+          <li><i class="fa-solid fa-trash"></i> Bin</li>
+        </ul>
+      </div>
+    </td>
+  `;
+  fileTableBody.appendChild(newRow);
+
+  Swal.fire({
+    icon: 'success',
+    title: 'File Uploaded',
+    text: `${file.name} uploaded to Drive`,
+    timer: 2000,
+    showConfirmButton: false
+  });
+
+  activateDriveTab();
+});
+
+// Upload Folder
+const uploadFolderBtn = document.getElementById('uploadFolderBtn');
+const folderInput = document.getElementById('folderInput');
+
+uploadFolderBtn.addEventListener('click', () => folderInput.click());
+
+folderInput.addEventListener('change', (e) => {
+  const files = e.target.files;
+  if (!files.length) return;
+
+  let addedCount = 0;
+  let toAdd = files.length;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
     const newFile = {
       name: file.name,
       type: getFileIcon(file.name),
-      owner: "me",
+      owner: "You",
       reason: new Date().toLocaleDateString("en-GB"),
       size: formatFileSize(file.size),
-      modified: "Just now",
-      preview: null
+      preview: null,
     };
 
-    if (file.type.startsWith("image/")) {
+    if (file.type.startsWith("image/") || file.type === "application/pdf") {
       const reader = new FileReader();
       reader.onload = (event) => {
         newFile.preview = event.target.result;
         filesData.push(newFile);
-        renderDriveTable();
+        addedCount++;
+        if (addedCount === toAdd) {
+          renderDriveTable();
+          Swal.fire({
+            icon: 'success',
+            title: 'Folder Uploaded',
+            text: `Folder uploaded to Drive`,
+            timer: 2000,
+            showConfirmButton: false
+          });
+          activateDriveTab();
+        }
       };
       reader.readAsDataURL(file);
     } else {
       filesData.push(newFile);
-      renderDriveTable();
+      addedCount++;
+      if (addedCount === toAdd) {
+        renderDriveTable();
+        Swal.fire({
+          icon: 'success',
+          title: 'Folder Uploaded',
+          text: `Folder uploaded to Drive`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+        activateDriveTab();
+      }
     }
+  }
+  folderInput.value = "";
+});
 
-    fileInput.value = "";
+// ===== Add File (from popup) =====
+createBtn.addEventListener('click', () => {
+  const fileName = fileNameInput.value.trim();
+  if (fileName === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please enter a file name!',
+    });
+    return;
+  }
+
+  // Add new file to filesData and render
+  const newFile = {
+    name: fileName,
+    type: getFileIcon(fileName),
+    owner: "You",
+    reason: new Date().toLocaleDateString("en-GB"),
+    size: "-",
+    preview: null,
+  };
+  filesData.push(newFile);
+  renderDriveTable();
+
+  popupOverlay.style.display = 'none';
+
+  Swal.fire({
+    icon: 'success',
+    title: 'File Created',
+    text: `${fileName} has been added to your Drive`,
+    timer: 2000,
+    showConfirmButton: false
   });
 
-  function getFileIcon(filename) {
-    const ext = filename.split('.').pop().toLowerCase();
-    if (["jpg", "jpeg", "png", "gif"].includes(ext)) return "file-image";
-    if (["pdf"].includes(ext)) return "file-pdf";
-    if (["doc", "docx"].includes(ext)) return "file-word";
-    if (["xls", "xlsx"].includes(ext)) return "file-excel";
-    if (["ppt", "pptx"].includes(ext)) return "file-powerpoint";
-    if (["zip", "rar"].includes(ext)) return "file-archive";
-    if (["mp3", "wav"].includes(ext)) return "file-audio";
-    if (["mp4", "mkv", "mov"].includes(ext)) return "file-video";
-    return "file";
+  activateDriveTab();
+});
+
+// Optional: close popup when clicking outside of content
+    popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('active');
+                }
+            });
+            const mode= document.querySelector("#mode");
+            let typeMode ="light";
+            mode.addEventListener("click",()=>{
+                if(typeMode==="light"){
+                   typeMode ="dark";
+                   document.querySelector("body").classList.add("dark")
+                   document.querySelector("body").classList.remove("light")
+                }else{
+                    typeMode ="light";
+                    document.querySelector("body").classList.add("light")
+                    document.querySelector("body").classList.remove("dark")
+                }
+                console.log(typeMode)
+            })
+
+// Tabs functionality
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".content");
+
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    tabs.forEach((t) => t.classList.remove("active"));
+    contents.forEach((c) => c.classList.remove("active"));
+
+    tab.classList.add("active");
+    const target = tab.getAttribute("data-target");
+    document.getElementById(target).classList.add("active");
+  });
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const optionIcons = document.querySelectorAll('.option');
+
+  optionIcons.forEach(icon => {
+    const dropdown = icon.nextElementSibling;
+
+    // Toggle dropdown visibility
+    icon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling up
+      closeAllDropdowns(); // Close others
+      dropdown.classList.toggle('show');
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', () => {
+      dropdown.classList.remove('show');
+    });
+
+    // Prevent dropdown click from closing itself
+    dropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Helper to close all dropdowns
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-option').forEach(d => d.classList.remove('show'));
+  }
+});
+let filesData = [];
+
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const tableBodyDrive = document.querySelector(".table-body-drive");
+const modal = document.getElementById("fileModal");
+const closeModal = document.getElementById("closeModal");
+const modalImage = document.getElementById("modalImage");
+const fileNameHeader = document.getElementById("fileNameHeader");
+
+// Add this after your modalImage definition:
+const modalIframe = document.createElement('iframe');
+modalIframe.style.display = 'none';
+modalIframe.style.width = '90%';
+modalIframe.style.height = '80%';
+modalIframe.style.border = 'none';
+modal.appendChild(modalIframe);
+
+// ===== Render Drive Table =====
+function renderDriveTable() {
+  tableBodyDrive.innerHTML = "";
+  filesData.forEach((file, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><i class="fa-solid fa-${file.type} me-2"></i>${file.name}</td>
+      <td><i class="fa-regular fa-circle-user me-1"></i>${file.owner}</td>
+      <td>${file.reason}</td>
+      <td>${file.size}</td>
+      <td class="dropdown-dev">
+        <i class="fa-solid fa-ellipsis-vertical option"></i>
+        <div class="dropdown-option">
+          <ul>
+            <li><i class="fa-solid fa-expand"></i> Open With <i class="fa-solid fa-caret-right" style="text-align: end; width: 115px;"></i></li>
+            <hr>
+            <li><i class="fa-solid fa-download"></i> Download</li>
+            <li><i class="fa-solid fa-pen-to-square"></i> Rename</li>
+            <li><i class="fa-solid fa-copy"></i> Copy</li>
+            <hr>
+            <li><i class="fa-solid fa-star"></i> Starred</li>
+            <li><i class="fa-solid fa-share-nodes"></i> Shared <i class="fa-solid fa-caret-right" style="text-align: end;width: 135px;"></i></li>
+            <li><i class="fa-solid fa-circle-info"></i> File Info <i class="fa-solid fa-caret-right" style="text-align: end;width: 65px;"></i></li>
+            <li><i class="fa-solid fa-trash"></i> Bin</li>
+          </ul>
+        </div>
+      </td>
+    `;
+    
+
+    // Open file preview when clicking on the row (except dropdown)
+    row.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("option")) openDriveViewer(file);
+    });
+
+    tableBodyDrive.appendChild(row);
+  });
+}
+
+// ===== Modal File Preview =====
+function openDriveViewer(file) {
+  // Hide both preview elements first
+  modalImage.style.display = 'none';
+  modalIframe.style.display = 'none';
+
+  if (file.type === "file-image" && file.preview) {
+    modalImage.src = file.preview;
+    modalImage.style.display = 'block';
+    fileNameHeader.textContent = file.name;
+    modal.style.display = "flex";
+  } else if (file.type === "file-pdf" && file.preview) {
+    modalIframe.src = file.preview;
+    modalIframe.style.display = 'block';
+    fileNameHeader.textContent = file.name;
+    modal.style.display = "flex";
+  } else {
+    Swal.fire({
+      icon: "info",
+      title: "No Preview",
+      text: "Preview available only for image and PDF files.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
+}
+
+// ===== Modal File Preview with Slider =====
+let currentPreviewIndex = -1;
+
+function openDriveViewer(file) {
+  // Find index of the file in filesData
+  currentPreviewIndex = filesData.findIndex(f => f.name === file.name && f.size === file.size);
+  showPreviewAtIndex(currentPreviewIndex);
+  if (modal.style.display !== "flex") modal.style.display = "flex";
+}
+
+function showPreviewAtIndex(index) {
+  const file = filesData[index];
+  if (file && file.preview && file.type === "file-image") {
+    modalImage.src = file.preview;
+    fileNameHeader.textContent = file.name;
+  } else if (file) {
+    modalImage.src = "";
+    fileNameHeader.textContent = file.name;
+    Swal.fire({
+      icon: "info",
+      title: "No Preview",
+      text: "Preview available only for image files.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
+  // Disable/enable slider buttons
+  document.getElementById("prevFileBtn").disabled = index <= 0;
+  document.getElementById("nextFileBtn").disabled = index >= filesData.length - 1;
+}
+
+// Add slider buttons to modal header (only once)
+(function addSliderButtons() {
+  const modalHeader = document.querySelector('.modal-header');
+  if (!document.getElementById("prevFileBtn")) {
+    const prevBtn = document.createElement("button");
+    prevBtn.id = "prevFileBtn";
+    prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+    prevBtn.style.marginRight = "10px";
+    prevBtn.className = "btn btn-sm btn-secondary";
+    prevBtn.onclick = function(e) {
+      e.stopPropagation();
+      if (currentPreviewIndex > 0) {
+        currentPreviewIndex--;
+        showPreviewAtIndex(currentPreviewIndex);
+      }
+    };
+    modalHeader.insertBefore(prevBtn, modalHeader.firstChild);
+  }
+  if (!document.getElementById("nextFileBtn")) {
+    const nextBtn = document.createElement("button");
+    nextBtn.id = "nextFileBtn";
+    nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+    nextBtn.style.marginLeft = "10px";
+    nextBtn.className = "btn btn-sm btn-secondary";
+    nextBtn.onclick = function(e) {
+      e.stopPropagation();
+      if (currentPreviewIndex < filesData.length - 1) {
+        currentPreviewIndex++;
+        showPreviewAtIndex(currentPreviewIndex);
+      }
+    };
+    modalHeader.appendChild(nextBtn);
+  }
+})();
+
+closeModal.addEventListener("click", () => (modal.style.display = "none"));
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// ===== Upload File =====
+uploadBtn.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const newFile = {
+    name: file.name,
+    type: getFileIcon(file.name),
+    owner: "You",
+    reason: new Date().toLocaleDateString("en-GB"),
+    size: formatFileSize(file.size),
+    preview: null,
+  };
+
+  if (file.type.startsWith("image/") || file.type === "application/pdf") {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      newFile.preview = event.target.result;
+      filesData.push(newFile);
+      renderDriveTable();
+      showUploadSuccess(file.name);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    filesData.push(newFile);
+    renderDriveTable();
+    showUploadSuccess(file.name);
   }
 
-  function formatFileSize(bytes) {
-    if (bytes < 1024) return bytes + " B";
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
-    if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + " MB";
-    return (bytes / 1073741824).toFixed(1) + " GB";
-  }
+  fileInput.value = "";
+});
+
+// ===== SweetAlert Success =====
+function showUploadSuccess(fileName) {
+  Swal.fire({
+    icon: "success",
+    title: "File Uploaded",
+    text: `${fileName} uploaded to Drive`,
+    timer: 2000,
+    showConfirmButton: false,
+  });
+}
+
+// ===== Helper Functions =====
+function getFileIcon(filename) {
+  const ext = filename.split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "gif"].includes(ext)) return "file-image";
+  if (["pdf"].includes(ext)) return "file-pdf";
+  if (["doc", "docx"].includes(ext)) return "file-word";
+  if (["xls", "xlsx"].includes(ext)) return "file-excel";
+  if (["ppt", "pptx"].includes(ext)) return "file-powerpoint";
+  if (["zip", "rar"].includes(ext)) return "file-archive";
+  if (["mp3", "wav"].includes(ext)) return "file-audio";
+  if (["mp4", "mkv", "mov"].includes(ext)) return "file-video";
+  return "file";
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+  if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + " MB";
+  return (bytes / 1073741824).toFixed(1) + " GB";
+}
+
 </script>
 
-</body>
+</script>
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+  </body>
 </html>
