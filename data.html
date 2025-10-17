@@ -376,13 +376,34 @@
       object-fit: contain;
     }
 
+    /* Side preview navigation buttons */
+.modal .side-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  cursor: pointer;
+  z-index: 1100;
+  transition: background 0.15s;
+}
+.modal .side-nav:hover { background: rgba(0,0,0,0.6); }
+.modal .side-nav.left { left: 20px; }
+.modal .side-nav.right { right: 20px; }
+.modal .side-nav.disabled { opacity: 0.35; pointer-events: none; }
   </style>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="d-flex justify-content-between align-items-center px-3 py-2">
-      <div class="logo d-flex align-items-center me-4">
-        <img src="images/image.png" alt class="w-75" />
+      <div class="logo d-flex align-items-center me-4 w-25">
+        <img src="images/image.png" alt class="w-100" />
       </div>
       <div
         class="nev-input border rounded-pill px-3 py-1 w-100"
@@ -842,7 +863,7 @@ folderInput.addEventListener('change', (e) => {
       preview: null,
     };
 
-    if (file.type.startsWith("image/")) {
+    if (file.type.startsWith("image/") || file.type === "application/pdf") {
       const reader = new FileReader();
       reader.onload = (event) => {
         newFile.preview = event.target.result;
@@ -991,6 +1012,39 @@ const closeModal = document.getElementById("closeModal");
 const modalImage = document.getElementById("modalImage");
 const fileNameHeader = document.getElementById("fileNameHeader");
 
+// Add this after your modalImage definition:
+const modalIframe = document.createElement('iframe');
+modalIframe.style.display = 'none';
+modalIframe.style.width = '90%';
+modalIframe.style.height = '80%';
+modalIframe.style.border = 'none';
+modal.appendChild(modalIframe);
+
+// --- Side nav buttons (left/right overlay) ---
+const prevSideBtn = document.createElement('div');
+prevSideBtn.className = 'side-nav left';
+prevSideBtn.innerHTML = '<i class="fa-solid fa-chevron-left fa-lg"></i>';
+prevSideBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentPreviewIndex > 0) {
+    currentPreviewIndex--;
+    showPreviewAtIndex(currentPreviewIndex);
+  }
+});
+modal.appendChild(prevSideBtn);
+
+const nextSideBtn = document.createElement('div');
+nextSideBtn.className = 'side-nav right';
+nextSideBtn.innerHTML = '<i class="fa-solid fa-chevron-right fa-lg"></i>';
+nextSideBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentPreviewIndex < filesData.length - 1) {
+    currentPreviewIndex++;
+    showPreviewAtIndex(currentPreviewIndex);
+  }
+});
+modal.appendChild(nextSideBtn);
+
 // ===== Render Drive Table =====
 function renderDriveTable() {
   tableBodyDrive.innerHTML = "";
@@ -1032,20 +1086,83 @@ function renderDriveTable() {
 
 // ===== Modal File Preview =====
 function openDriveViewer(file) {
-  if (file.preview && file.type === "file-image") {
+  // Hide both preview elements first
+  modalImage.style.display = 'none';
+  modalIframe.style.display = 'none';
+
+  if (file.type === "file-image" && file.preview) {
     modalImage.src = file.preview;
+    modalImage.style.display = 'block';
+    fileNameHeader.textContent = file.name;
+    modal.style.display = "flex";
+  } else if (file.type === "file-pdf" && file.preview) {
+    modalIframe.src = file.preview;
+    modalIframe.style.display = 'block';
     fileNameHeader.textContent = file.name;
     modal.style.display = "flex";
   } else {
     Swal.fire({
       icon: "info",
       title: "No Preview",
-      text: "Preview available only for image files.",
+      text: "Preview available only for image and PDF files.",
       timer: 2000,
       showConfirmButton: false,
     });
   }
 }
+
+// ===== Modal File Preview with Slider =====
+let currentPreviewIndex = -1;
+
+function openDriveViewer(file) {
+  // Find index of the file in filesData
+  currentPreviewIndex = filesData.findIndex(f => f.name === file.name && f.size === file.size);
+  showPreviewAtIndex(currentPreviewIndex);
+  if (modal.style.display !== "flex") modal.style.display = "flex";
+}
+
+function showPreviewAtIndex(index) {
+  const file = filesData[index];
+  // reset previews
+  modalImage.style.display = 'none';
+  modalIframe.style.display = 'none';
+
+  if (!file) {
+    fileNameHeader.textContent = '';
+    prevSideBtn.classList.add('disabled');
+    nextSideBtn.classList.add('disabled');
+    return;
+  }
+
+  fileNameHeader.textContent = file.name;
+
+  // if image preview available -> show image
+  if (file.preview && file.type === "file-image") {
+    modalImage.src = file.preview;
+    modalImage.style.display = 'block';
+  } else if (file.preview && file.type === "file-pdf") {
+    // show pdf in iframe
+    modalIframe.src = file.preview;
+    modalIframe.style.display = 'block';
+  } else {
+    // no preview available
+    modalImage.src = '';
+    Swal.fire({
+      icon: "info",
+      title: "No Preview",
+      text: "Preview available only for image and PDF files.",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
+
+  // update side buttons disabled state
+  if (index <= 0) prevSideBtn.classList.add('disabled'); else prevSideBtn.classList.remove('disabled');
+  if (index >= filesData.length - 1) nextSideBtn.classList.add('disabled'); else nextSideBtn.classList.remove('disabled');
+
+}
+
+
 
 closeModal.addEventListener("click", () => (modal.style.display = "none"));
 window.addEventListener("click", (e) => {
@@ -1068,7 +1185,7 @@ fileInput.addEventListener("change", (e) => {
     preview: null,
   };
 
-  if (file.type.startsWith("image/")) {
+  if (file.type.startsWith("image/") || file.type === "application/pdf") {
     const reader = new FileReader();
     reader.onload = (event) => {
       newFile.preview = event.target.result;

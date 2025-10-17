@@ -268,6 +268,75 @@
             .open:hover .dropdown-sub-option ul{
                 display: block;
             }
+            /* popup modal */
+            .modal {
+                display: block;
+                position: fixed;
+                z-index: 50;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.95);
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .modal-header {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 25px;
+                background: rgba(0,0,0,0.8);
+                color: #fff;
+                font-size: 16px;
+            }
+
+            .modal-header .close-btn {
+                cursor: pointer;
+                font-size: 24px;
+                color: #ccc;
+            }
+
+            .modal-header .close-btn:hover {
+                color: #fff;
+            }
+
+            .modal img {
+                max-width: 90%;
+                max-height: 80%;
+                border-radius: 8px;
+                box-shadow: 0 0 20px rgba(255,255,255,0.1);
+                object-fit: contain;
+            }
+
+            /* Side preview navigation buttons */
+            .modal .side-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0,0,0,0.4);
+                color: #fff;
+                cursor: pointer;
+                z-index: 1100;
+                transition: background 0.15s;
+            }
+            .modal .side-nav:hover { background: rgba(0,0,0,0.6); }
+            .modal .side-nav.left { left: 20px; }
+            .modal .side-nav.right { right: 20px; }
+            .modal .side-nav.disabled { opacity: 0.35; pointer-events: none; }
         </style>
     </head>
     <body>
@@ -511,6 +580,13 @@
                                 <!-- json data -->
                             </tbody>
                         </table>
+                        <div id="fileModal" class="modal">
+                            <div class="modal-header">
+                                <span id="fileNameHeader">File name</span>
+                                <i class="fa-solid fa-xmark close-btn" id="closeModal"></i>
+                            </div>
+                            <img id="modalImage" src="" alt="Preview" />
+                        </div>
                     </div>
                 </div>
                 <!-- Shared Section -->

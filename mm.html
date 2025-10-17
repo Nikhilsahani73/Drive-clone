@@ -89,10 +89,7 @@
   
   }
 
-    .main-content {
-      background-color: #121314;
-      border-radius: 20px;
-    }
+
 
     .table-head th,
     .table-body td {
@@ -267,14 +264,6 @@
   overflow: hidden;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
 .modal-header h4 {
   margin: 0;
   font-size: 18px;
@@ -353,9 +342,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 25px;
-      background: rgba(0,0,0,0.8);
+      background: transparent;
       color: #fff;
       font-size: 16px;
+      border: none;
     }
 
     .modal-header .close-btn {
@@ -369,20 +359,41 @@
     }
 
     .modal img {
-      max-width: 90%;
-      max-height: 80%;
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 8px;
       box-shadow: 0 0 20px rgba(255,255,255,0.1);
       object-fit: contain;
     }
 
+    /* Side preview navigation buttons */
+.modal .side-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  cursor: pointer;
+  z-index: 1100;
+  transition: background 0.15s;
+}
+.modal .side-nav:hover { background: rgba(0,0,0,0.6); }
+.modal .side-nav.left { left: 20px; }
+.modal .side-nav.right { right: 20px; }
+.modal .side-nav.disabled { opacity: 0.35; pointer-events: none; }
   </style>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="d-flex justify-content-between align-items-center px-3 py-2">
-      <div class="logo d-flex align-items-center me-4">
-        <img src="images/image.png" alt class="w-75" />
+      <div class="logo d-flex align-items-center me-4 w-25">
+        <img src="images/image.png" alt class="w-100" />
       </div>
       <div
         class="nev-input border rounded-pill px-3 py-1 w-100"
@@ -995,9 +1006,34 @@ const fileNameHeader = document.getElementById("fileNameHeader");
 const modalIframe = document.createElement('iframe');
 modalIframe.style.display = 'none';
 modalIframe.style.width = '90%';
-modalIframe.style.height = '80%';
+modalIframe.style.height = '99%';
 modalIframe.style.border = 'none';
 modal.appendChild(modalIframe);
+
+// --- Side nav buttons (left/right overlay) ---
+const prevSideBtn = document.createElement('div');
+prevSideBtn.className = 'side-nav left';
+prevSideBtn.innerHTML = '<i class="fa-solid fa-chevron-left fa-lg"></i>';
+prevSideBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentPreviewIndex > 0) {
+    currentPreviewIndex--;
+    showPreviewAtIndex(currentPreviewIndex);
+  }
+});
+modal.appendChild(prevSideBtn);
+
+const nextSideBtn = document.createElement('div');
+nextSideBtn.className = 'side-nav right';
+nextSideBtn.innerHTML = '<i class="fa-solid fa-chevron-right fa-lg"></i>';
+nextSideBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentPreviewIndex < filesData.length - 1) {
+    currentPreviewIndex++;
+    showPreviewAtIndex(currentPreviewIndex);
+  }
+});
+modal.appendChild(nextSideBtn);
 
 // ===== Render Drive Table =====
 function renderDriveTable() {
@@ -1077,59 +1113,46 @@ function openDriveViewer(file) {
 
 function showPreviewAtIndex(index) {
   const file = filesData[index];
-  if (file && file.preview && file.type === "file-image") {
+  // reset previews
+  modalImage.style.display = 'none';
+  modalIframe.style.display = 'none';
+
+  if (!file) {
+    fileNameHeader.textContent = '';
+    prevSideBtn.classList.add('disabled');
+    nextSideBtn.classList.add('disabled');
+    return;
+  }
+
+  fileNameHeader.textContent = file.name;
+
+  // if image preview available -> show image
+  if (file.preview && file.type === "file-image") {
     modalImage.src = file.preview;
-    fileNameHeader.textContent = file.name;
-  } else if (file) {
-    modalImage.src = "";
-    fileNameHeader.textContent = file.name;
+    modalImage.style.display = 'block';
+  } else if (file.preview && file.type === "file-pdf") {
+    // show pdf in iframe
+    modalIframe.src = file.preview;
+    modalIframe.style.display = 'block';
+  } else {
+    // no preview available
+    modalImage.src = '';
     Swal.fire({
       icon: "info",
       title: "No Preview",
-      text: "Preview available only for image files.",
-      timer: 2000,
+      text: "Preview available only for image and PDF files.",
+      timer: 1500,
       showConfirmButton: false,
     });
   }
-  // Disable/enable slider buttons
-  document.getElementById("prevFileBtn").disabled = index <= 0;
-  document.getElementById("nextFileBtn").disabled = index >= filesData.length - 1;
+
+  // update side buttons disabled state
+  if (index <= 0) prevSideBtn.classList.add('disabled'); else prevSideBtn.classList.remove('disabled');
+  if (index >= filesData.length - 1) nextSideBtn.classList.add('disabled'); else nextSideBtn.classList.remove('disabled');
+
 }
 
-// Add slider buttons to modal header (only once)
-(function addSliderButtons() {
-  const modalHeader = document.querySelector('.modal-header');
-  if (!document.getElementById("prevFileBtn")) {
-    const prevBtn = document.createElement("button");
-    prevBtn.id = "prevFileBtn";
-    prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-    prevBtn.style.marginRight = "10px";
-    prevBtn.className = "btn btn-sm btn-secondary";
-    prevBtn.onclick = function(e) {
-      e.stopPropagation();
-      if (currentPreviewIndex > 0) {
-        currentPreviewIndex--;
-        showPreviewAtIndex(currentPreviewIndex);
-      }
-    };
-    modalHeader.insertBefore(prevBtn, modalHeader.firstChild);
-  }
-  if (!document.getElementById("nextFileBtn")) {
-    const nextBtn = document.createElement("button");
-    nextBtn.id = "nextFileBtn";
-    nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-    nextBtn.style.marginLeft = "10px";
-    nextBtn.className = "btn btn-sm btn-secondary";
-    nextBtn.onclick = function(e) {
-      e.stopPropagation();
-      if (currentPreviewIndex < filesData.length - 1) {
-        currentPreviewIndex++;
-        showPreviewAtIndex(currentPreviewIndex);
-      }
-    };
-    modalHeader.appendChild(nextBtn);
-  }
-})();
+
 
 closeModal.addEventListener("click", () => (modal.style.display = "none"));
 window.addEventListener("click", (e) => {
